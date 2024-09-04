@@ -8,8 +8,8 @@ const nodeTypes = {
 };
 
 const initialNodes = [
-  { id: '1', type: 'recipeNode', position: { x: 0, y: 0 }, data: { initialCount: 5 } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+  { id: '1', type: 'recipeNode', position: { x: 0, y: 0 }, data: {} },
+  { id: '2', type: 'recipeNode', position: { x: 0, y: 100 }, data: {} },
 ];
 const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 

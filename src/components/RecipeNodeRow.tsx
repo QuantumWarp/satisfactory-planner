@@ -3,6 +3,7 @@ import { Handle, Position } from '@xyflow/react';
 type RecipeNodeRowProps = {
   index: number;
   input: boolean;
+  icon: string;
   item: string;
   amount: number;
 };
@@ -21,20 +22,22 @@ const arrow = (input: boolean) => (
   </div>
 )
 
-export default function RecipeNodeRow({ input, item, amount, index }: RecipeNodeRowProps) {
+export default function RecipeNodeRow({ input, icon, item, amount, index }: RecipeNodeRowProps) {
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: "6px 5px",
+        padding: "4px 5px",
         border: "1px solid lightgrey",
         borderTop: "none",
         backgroundColor: input ? "#dff3dc" : "#efefef",
       }}
     >
       {input && arrow(true)}
+
+      <img src={"src/resources/icons/" + icon} height={28} />
 
       <div
         style={{
@@ -66,7 +69,7 @@ export default function RecipeNodeRow({ input, item, amount, index }: RecipeNode
       {!input && arrow(false)}
 
       <Handle
-        type="source"
+        type={input ? "target" : "source"}
         position={input ? Position.Left : Position.Right}
         id={item}
         style={{ top: index * 37 + 55, background: '#555' }}

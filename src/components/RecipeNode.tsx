@@ -24,9 +24,9 @@ export default function RecipeNode({ data }: RecipeNodeProps) {
         Silicon Circuit Board
       </div>
 
-      <RecipeNodeRow index={0} input={false} item="Circuit Board" amount={345} />
-      <RecipeNodeRow index={1} input={true} item="Copper Sheet" amount={759} />
-      <RecipeNodeRow index={2} input={true} item="Silica" amount={759} />
+      <RecipeNodeRow index={0} input={false} item="Circuit Board" icon="Circuit_Board.png" amount={345} />
+      <RecipeNodeRow index={1} input={true} item="Copper Sheet" icon="Copper_Sheet.png" amount={759} />
+      <RecipeNodeRow index={2} input={true} item="Silica"  icon="Silica.png" amount={759} />
     </div>
   );
 }

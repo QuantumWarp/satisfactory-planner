@@ -2,4 +2,7 @@ node_modules
 dist
 **/parser/Docs.json
 **/parser/docs.ts
+**/parser/webpage.html
 **/resources/satisfactory-data.json
+**/resources/icons
+

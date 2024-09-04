@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "parse": "tsx src/parser/parse.ts",
+    "icons": "tsx src/parser/icons.ts",
     "dev": "vite",
     "build": "tsc && vite build"
   },
