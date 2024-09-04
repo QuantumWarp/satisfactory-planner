@@ -1,0 +1,5 @@
+node_modules
+dist
+**/parser/Docs.json
+**/parser/docs.ts
+**/resources/satisfactory-data.json
