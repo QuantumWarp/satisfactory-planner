@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { writeFile } from "fs/promises";
-import { Recipe } from "../model/recipe.ts";
+import { Recipe } from "../model/data/recipe.ts";
 import { docs } from "./docs.ts";
-import { SatisfactoryData } from "../model/satisfactory-data.ts";
+import { SatisfactoryData } from "../model/data/satisfactory-data.ts";
 
 const path = "./src/resources/satisfactory-data.json";
 const recipeSuffix = "FGRecipe'";
@@ -26,7 +26,7 @@ const parse = async () => {
     items: []
   };
 
-  writeFile(path, JSON.stringify(data, null, 2));
+  writeFile(path, JSON.stringify(data));
 }
 
 const parseProducedIn = (producedIn: string) => {
