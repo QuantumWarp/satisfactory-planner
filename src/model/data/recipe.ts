@@ -1,12 +1,12 @@
 export type RecipeInput = {
-  name: string;
+  itemKey: string;
   amount: number;
 }
 
 export type Recipe = {
   name: string;
-  producedIn: string[];
+  producerKey: string;
   ingredients: RecipeInput[];
   product: RecipeInput[];
-  time: string;
+  time: number;
 }
