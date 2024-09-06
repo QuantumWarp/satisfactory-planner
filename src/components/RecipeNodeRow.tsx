@@ -1,10 +1,10 @@
 import { Handle, Position } from '@xyflow/react';
+import { Item } from '../model/data/item';
  
 type RecipeNodeRowProps = {
   index: number;
   input: boolean;
-  icon: string;
-  item: string;
+  item: Item;
   amount: number;
 };
 
@@ -22,7 +22,7 @@ const arrow = (input: boolean) => (
   </div>
 )
 
-export default function RecipeNodeRow({ input, icon, item, amount, index }: RecipeNodeRowProps) {
+export default function RecipeNodeRow({ input, item, amount, index }: RecipeNodeRowProps) {
   return (
     <div
       style={{
@@ -37,7 +37,7 @@ export default function RecipeNodeRow({ input, icon, item, amount, index }: Reci
     >
       {input && arrow(true)}
 
-      <img src={icon} height={32} />
+      <img src={item.icon} height={32} />
 
       <div
         style={{
@@ -45,7 +45,7 @@ export default function RecipeNodeRow({ input, icon, item, amount, index }: Reci
           marginLeft: 10
         }}
       >
-        {item}
+        {item.name}
       </div>
   
       <div
@@ -63,7 +63,7 @@ export default function RecipeNodeRow({ input, icon, item, amount, index }: Reci
           marginRight: 5
         }}
       >
-        /min
+        {item.isPiped ? "m³" : ""}/min
       </div>
 
       {!input && arrow(false)}
@@ -71,7 +71,7 @@ export default function RecipeNodeRow({ input, icon, item, amount, index }: Reci
       <Handle
         type={input ? "target" : "source"}
         position={input ? Position.Left : Position.Right}
-        id={item}
+        id={item.key}
         style={{ top: index * 39 + 56, background: '#555' }}
         isConnectable
       />

@@ -20,11 +20,11 @@ export const parseRecipeIngredients = async (ingredients: string) => {
   const results: RecipeInput[] = [];
   for (const match of matches) {
     const ingredientClass = match[1];
-    const key = await parseIngredient(ingredientClass);
+    const item = await parseIngredient(ingredientClass);
     const amount = Number(match[2]);
     results.push({
-      itemKey: key,
-      amount
+      itemKey: item.key,
+      amount: amount * (item.isPiped ? 0.001 : 1)
     });
   }
 
@@ -36,21 +36,26 @@ const parseIngredient = async (ingredientClass: string) => {
 
   const key = blob.ClassName;
   const existing = data.items.find((x) => x.key === key);
-  if (existing) return key;
+  if (existing) return existing;
 
   const name = blob.mDisplayName;
   const iconPath = await checkIcon(name);
   
-  data.items.push({
+  const item = {
     key,
     name: name,
     icon: iconPath,
     description: blob.mDescription,
-    sinkable: blob.mResourceSinkPoints !== "0",
-    isResource: blob.mSmallIcon.includes("/Game/FactoryGame/Resource")
-  });
+    isSinkable: blob.mResourceSinkPoints !== "0",
+    isPiped: ["RF_LIQUID", "RF_GAS"].includes(blob.mForm),
+    isResource: blob.mSmallIcon.includes("/Game/FactoryGame/Resource/RawResources")
+      && !blob.mDisplayName.includes("Packaged"),
+    isAmmo: blob.mWeaponDamageMultiplier !== undefined,
+    isFicsmas: blob.mSmallIcon.includes("/Game/FactoryGame/Events/Christmas")
+  };
+  data.items.push(item);
 
-  return key;
+  return item;
 }
 
 // Should only find a single entry since each recipe can only have one manufacturer

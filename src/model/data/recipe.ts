@@ -7,6 +7,7 @@ export type Recipe = {
   name: string;
   producerKey: string;
   ingredients: RecipeInput[];
-  product: RecipeInput[];
-  time: number;
+  products: RecipeInput[];
+  duration: number;
+  isAlternate: boolean;
 }

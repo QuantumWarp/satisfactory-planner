@@ -3,6 +3,9 @@ export type Item = {
   name: string;
   icon: string;
   description: string;
-  sinkable: boolean;
+  isSinkable: boolean;
+  isPiped: boolean;
   isResource: boolean;
+  isAmmo: boolean;
+  isFicsmas: boolean;
 }

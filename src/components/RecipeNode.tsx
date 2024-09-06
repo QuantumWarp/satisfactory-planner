@@ -10,7 +10,7 @@ type RecipeNodeProps = NodeProps<Node<{
  
 export default function RecipeNode({ data }: RecipeNodeProps) {
   const { recipe } = data;
-  const perMin = 60 / recipe.time;
+  const perMin = 60 / recipe.duration;
   return (
     <div
       style={{
@@ -29,15 +29,14 @@ export default function RecipeNode({ data }: RecipeNodeProps) {
         {recipe.name}
       </div>
 
-      {recipe.product.map((product, index) => {
+      {recipe.products.map((product, index) => {
         const item = allItems.find((x) => x.key === product.itemKey)!;
         return (
           <RecipeNodeRow
             key={"product-" + item.key}
             index={index}
             input={false}
-            item={item.name}
-            icon={item.icon}
+            item={item}
             amount={perMin * product.amount * data.multiplier}
           />
         );
@@ -48,10 +47,9 @@ export default function RecipeNode({ data }: RecipeNodeProps) {
         return (
           <RecipeNodeRow
             key={"ingredient-" + item.key}
-            index={index + recipe.product.length}
+            index={index + recipe.products.length}
             input={true}
-            item={item.name}
-            icon={item.icon}
+            item={item}
             amount={perMin * product.amount * data.multiplier}
           />
         );

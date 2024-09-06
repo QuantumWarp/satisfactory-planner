@@ -14,11 +14,12 @@ const parse = async () => {
   for (const x of recipeBlobs) {
     try {
       const recipe = {
-        name: x.mDisplayName,
+        name: x.mDisplayName.replace("Alternate: ", ""),
         producerKey: await parseRecipeProducedIn(x.mProducedIn),
         ingredients: await parseRecipeIngredients(x.mIngredients),
-        product: await parseRecipeIngredients(x.mProduct),
-        time: Number(x.mManufactoringDuration)
+        products: await parseRecipeIngredients(x.mProduct),
+        duration: Number(x.mManufactoringDuration),
+        isAlternate: x.mDisplayName.startsWith("Alternate: ")
       };
       data.recipes.push(recipe);
     } catch (e) {
