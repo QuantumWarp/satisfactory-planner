@@ -1,16 +1,21 @@
 import { NodeProps, Node } from '@xyflow/react';
 import RecipeNodeRow from './RecipeNodeRow';
+import { Recipe } from '../model/data/recipe';
+import { allItems } from '../resources/data.helper';
  
 type RecipeNodeProps = NodeProps<Node<{
-
+  recipe: Recipe;
+  multiplier: number;
 }>>;
  
 export default function RecipeNode({ data }: RecipeNodeProps) {
+  const { recipe } = data;
+  const perMin = 60 / recipe.time;
   return (
     <div
       style={{
         backgroundColor: "white",
-        width: "350px"
+        width: "360px"
       }}
     >
       <div
@@ -21,12 +26,36 @@ export default function RecipeNode({ data }: RecipeNodeProps) {
           padding: "6px 10px"
         }}
       >
-        Silicon Circuit Board
+        {recipe.name}
       </div>
 
-      <RecipeNodeRow index={0} input={false} item="Circuit Board" icon="Circuit_Board.png" amount={345} />
-      <RecipeNodeRow index={1} input={true} item="Copper Sheet" icon="Copper_Sheet.png" amount={759} />
-      <RecipeNodeRow index={2} input={true} item="Silica"  icon="Silica.png" amount={759} />
+      {recipe.product.map((product, index) => {
+        const item = allItems.find((x) => x.key === product.itemKey)!;
+        return (
+          <RecipeNodeRow
+            key={"product-" + item.key}
+            index={index}
+            input={false}
+            item={item.name}
+            icon={item.icon}
+            amount={perMin * product.amount * data.multiplier}
+          />
+        );
+      })}
+      
+      {recipe.ingredients.map((product, index) => {
+        const item = allItems.find((x) => x.key === product.itemKey)!;
+        return (
+          <RecipeNodeRow
+            key={"ingredient-" + item.key}
+            index={index + recipe.product.length}
+            input={true}
+            item={item.name}
+            icon={item.icon}
+            amount={perMin * product.amount * data.multiplier}
+          />
+        );
+      })}
     </div>
   );
 }

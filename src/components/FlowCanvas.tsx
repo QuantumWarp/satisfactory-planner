@@ -1,21 +1,24 @@
 import '@xyflow/react/dist/style.css';
-import { addEdge, Background, Controls, MiniMap, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react';
+import { addEdge, Background, Controls, Edge, MiniMap, Node, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react';
 import { useCallback } from 'react';
 import RecipeNode from './RecipeNode';
+import { ItemMenu } from './ItemMenu';
+import { createNode } from '../model/node.creator';
+import { allRecipes } from '../resources/data.helper';
 
 const nodeTypes = {
   recipeNode: RecipeNode,
 };
 
-const initialNodes = [
-  { id: '1', type: 'recipeNode', position: { x: 0, y: 0 }, data: {} },
-  { id: '2', type: 'recipeNode', position: { x: 0, y: 100 }, data: {} },
-];
-const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
+// const initialNodes = [
+//   createNode(allRecipes[Math.floor(Math.random() * allRecipes.length)])
+// ];
+// const initialEdges = [{ id: 'e1-2', source: '1', target: '2' }];
 
 export function FlowCanvas() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [nodes, setNodes, onNodesChange] = useNodesState<any>([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
  
   const onConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
@@ -23,7 +26,13 @@ export function FlowCanvas() {
   );
  
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh'
+      }}
+    >
+      {/* <ItemMenu open /> */}
       <ReactFlow
         fitView
         nodeTypes={nodeTypes}
@@ -32,6 +41,9 @@ export function FlowCanvas() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onPaneClick={() => {
+          setNodes((nodes) => nodes.concat(createNode(allRecipes[Math.floor(Math.random() * allRecipes.length)])))
+        }}
       >
         <Controls />
         <MiniMap />

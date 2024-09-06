@@ -15,7 +15,7 @@ const arrow = (input: boolean) => (
       transform: "scaleY(1.5)",
       color: input ? "#317f3e" : "#d99b75",
       marginLeft: input ? 0 : 5,
-      marginRight: input ? 5 : 0
+      marginRight: input ? 10 : 0
     }}
   >
     &#9654;
@@ -29,7 +29,7 @@ export default function RecipeNodeRow({ input, icon, item, amount, index }: Reci
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: "4px 5px",
+        padding: "3px 5px",
         border: "1px solid lightgrey",
         borderTop: "none",
         backgroundColor: input ? "#dff3dc" : "#efefef",
@@ -37,12 +37,12 @@ export default function RecipeNodeRow({ input, icon, item, amount, index }: Reci
     >
       {input && arrow(true)}
 
-      <img src={"src/resources/icons/" + icon} height={28} />
+      <img src={icon} height={32} />
 
       <div
         style={{
           flex: 1,
-          marginLeft: 5
+          marginLeft: 10
         }}
       >
         {item}
@@ -72,7 +72,7 @@ export default function RecipeNodeRow({ input, icon, item, amount, index }: Reci
         type={input ? "target" : "source"}
         position={input ? Position.Left : Position.Right}
         id={item}
-        style={{ top: index * 37 + 55, background: '#555' }}
+        style={{ top: index * 39 + 56, background: '#555' }}
         isConnectable
       />
     </div>
