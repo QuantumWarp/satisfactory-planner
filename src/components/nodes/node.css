@@ -1,0 +1,9 @@
+.row-handle {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.node:hover .row-handle,
+.node .row-handle:has(.connectingfrom) {
+  opacity: 1;
+}

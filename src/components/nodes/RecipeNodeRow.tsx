@@ -1,6 +1,6 @@
-import { FormType, InputType } from '../../../model/data/enums';
-import { Item } from '../../../model/data/item';
-import { RecipeRowHandle } from './RecipeRowHandle';
+import { FormType, InputType } from '../../model/data/enums';
+import { Item } from '../../model/data/item';
+import { RowHandle } from './RowHandle';
  
 type RecipeNodeRowProps = {
   input: InputType;
@@ -69,7 +69,7 @@ export default function RecipeNodeRow({ input, item, amount }: RecipeNodeRowProp
 
       {input === InputType.Product && arrow(false)}
 
-      <RecipeRowHandle item={item} input={input} />
+      <RowHandle handleKey={item.key} input={input} />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { OtherMenu } from "../menus/OtherMenu";
 import { RecipeMenu } from "../menus/recipe/RecipeMenu";
 import { useReactFlow } from "@xyflow/react";
-import { createNode } from "../../model/node.creator";
+import { createNode, createOtherNode } from "../../model/node.creator";
 import { ExtractorMenu } from "../menus/ExtractorMenu";
 
 export function TopBar() {
@@ -49,7 +49,7 @@ export function TopBar() {
 
       <ExtractorMenu
         anchorEl={extractorOpen}
-        onSelect={() => setExtractorOpen(null)}
+        onSelect={(x) => setNodes((nodes) => nodes.concat(createNode(x)))}
         onClose={() => setExtractorOpen(null)}
       />
 
@@ -61,7 +61,7 @@ export function TopBar() {
 
       <OtherMenu
         anchorEl={otherOpen}
-        onSelect={() => setOtherOpen(null)}
+        onSelect={(x) => setNodes((nodes) => nodes.concat(createOtherNode(x)))}
         onClose={() => setOtherOpen(null)}
       />
     </AppBar>

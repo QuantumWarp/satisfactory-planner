@@ -1,24 +1,23 @@
 import { Handle, Position } from '@xyflow/react';
-import { InputType } from '../../../model/data/enums';
-import { Item } from '../../../model/data/item';
+import { InputType } from '../../model/data/enums';
 import { Box } from '@mui/material';
 
-type RecipeRowHandleProps = {
-  item: Item;
+type RowHandleProps = {
+  handleKey: string;
   input: InputType;
 };
 
 // minWidth required on handle to override the default
 // The inner div needs the className to be set to behave as part of the handle
 // The hover effect is in the css file
-export const RecipeRowHandle = ({
-  item,
+export const RowHandle = ({
+  handleKey,
   input,
-}: RecipeRowHandleProps) => {
+}: RowHandleProps) => {
   const isInput = input === InputType.Ingredient;
   return (
     <Box
-      className="recipe-row-handle"
+      className="row-handle"
       position="absolute"
       style={{
         ...(isInput ? { left: 0 } : { right: 0 }),
@@ -40,7 +39,7 @@ export const RecipeRowHandle = ({
       />
       
       <Handle
-        id={item.key}
+        id={handleKey}
         type={input === InputType.Ingredient ? "target" : "source" }
         position={input === InputType.Ingredient ? Position.Left : Position.Right}
         style={{

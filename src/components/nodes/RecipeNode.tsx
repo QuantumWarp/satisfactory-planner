@@ -1,9 +1,9 @@
 import { NodeProps, Node } from '@xyflow/react';
 import RecipeNodeRow from './RecipeNodeRow';
-import { Recipe } from '../../../model/data/recipe';
-import { allItems } from '../../../resources/data.helper';
-import { InputType } from '../../../model/data/enums';
-import "./recipe-node.css";
+import { Recipe } from '../../model/data/recipe';
+import { allItems } from '../../resources/data.helper';
+import { InputType } from '../../model/data/enums';
+import "./node.css";
  
 type RecipeNodeProps = NodeProps<Node<{
   recipe: Recipe;
@@ -15,10 +15,9 @@ export default function RecipeNode({ data }: RecipeNodeProps) {
   const perMin = 60 / recipe.duration;
   return (
     <div
-      className="recipe-node"
+      className="node"
       style={{
-        backgroundColor: "white",
-        width: "360px",
+        width: recipe.isExtraction ? "260px" : "360px",
       }}
     >
       <div
@@ -30,6 +29,8 @@ export default function RecipeNode({ data }: RecipeNodeProps) {
         }}
       >
         {recipe.name}
+        {recipe.isAlternate ? " - Alternate" : ""}
+        {recipe.isExtraction ? " - Extraction" : ""}
       </div>
 
       {recipe.products.map((product) => {

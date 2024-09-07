@@ -1,8 +1,10 @@
 import { ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import { OtherNodeProps } from "../nodes/OtherNode";
+import { InputType } from "../../model/data/enums";
 
 type OtherMenuProps = {
   anchorEl: HTMLElement | null;
-  onSelect: () => void;
+  onSelect: (props: OtherNodeProps) => void;
   onClose: () => void;
 }
 
@@ -28,7 +30,11 @@ export function OtherMenu({
     >
       <MenuItem
         sx={{ width: 200 }}
-        onClick={() => { onSelect(); onClose(); } }
+        onClick={() => { onSelect({
+          title: "Sink",
+          icon: "./src/resources/icons/buildings/Awesome_Shop.png",
+          input: InputType.Ingredient
+        }); onClose(); } }
       >
         <ListItemIcon>
           <img src="./src/resources/icons/buildings/Awesome_Shop.png" height={40} />
@@ -39,7 +45,11 @@ export function OtherMenu({
       </MenuItem>
 
       <MenuItem
-        onClick={() => { onSelect(); onClose(); } }
+        onClick={() => { onSelect({
+          title: "Power",
+          icon: "./src/resources/icons/buildings/Power_Line.png",
+          input: InputType.Ingredient
+        }); onClose(); } }
       >
         <ListItemIcon>
           <img src="./src/resources/icons/buildings/Power_Line.png" height={40} />
@@ -50,7 +60,11 @@ export function OtherMenu({
       </MenuItem>
 
       <MenuItem
-        onClick={() => { onSelect(); onClose(); } }
+        onClick={() => { onSelect({
+          title: "Storage",
+          icon: "./src/resources/icons/buildings/Storage_Container.png",
+          input: InputType.Both
+        }); onClose(); } }
       >
         <ListItemIcon>
           <img src="./src/resources/icons/buildings/Storage_Container.png" height={40} />
@@ -61,7 +75,11 @@ export function OtherMenu({
       </MenuItem>
 
       <MenuItem
-        onClick={() => { onSelect(); onClose(); } }
+        onClick={() => { onSelect({
+          title: "External",
+          icon: "./src/resources/icons/buildings/Train_Station.png",
+          input: InputType.Both
+        }); onClose(); } }
       >
         <ListItemIcon>
           <img src="./src/resources/icons/buildings/Train_Station.png" height={40} />
