@@ -48,6 +48,28 @@ export function OtherMenu({
           Power
         </ListItemText>
       </MenuItem>
+
+      <MenuItem
+        onClick={() => { onSelect(); onClose(); } }
+      >
+        <ListItemIcon>
+          <img src="./src/resources/icons/buildings/Storage_Container.png" height={40} />
+        </ListItemIcon>
+        <ListItemText sx={{ ml: 2}}>
+          Storage
+        </ListItemText>
+      </MenuItem>
+
+      <MenuItem
+        onClick={() => { onSelect(); onClose(); } }
+      >
+        <ListItemIcon>
+          <img src="./src/resources/icons/buildings/Train_Station.png" height={40} />
+        </ListItemIcon>
+        <ListItemText sx={{ ml: 2}}>
+          External
+        </ListItemText>
+      </MenuItem>
     </Menu>
   )
 }

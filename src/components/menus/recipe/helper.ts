@@ -13,10 +13,15 @@ export function getRecipes(
   }
 
   if (itemKey) {
-    if (input) {
-      recipes = recipes.filter((x) => x.ingredients.find((y) => y.itemKey === itemKey));
-    } else {
+    if (input === InputType.Product) {
       recipes = recipes.filter((x) => x.products.find((y) => y.itemKey === itemKey));
+    } else if (input === InputType.Ingredient) {
+      recipes = recipes.filter((x) => x.ingredients.find((y) => y.itemKey === itemKey));
+    } else if (input === InputType.Both) {
+      recipes = recipes.filter((x) =>
+        x.ingredients.find((y) => y.itemKey === itemKey) ||
+        x.products.find((y) => y.itemKey === itemKey)
+      );
     }
   }
 

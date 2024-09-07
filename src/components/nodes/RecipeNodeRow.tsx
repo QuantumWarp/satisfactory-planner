@@ -1,9 +1,9 @@
-import { Handle, Position } from '@xyflow/react';
-import { Item } from '../model/data/item';
+import { InputType } from '../../model/data/enums';
+import { Item } from '../../model/data/item';
+import { RecipeRowHandle } from './RecipeRowHandle';
  
 type RecipeNodeRowProps = {
-  index: number;
-  input: boolean;
+  input: InputType;
   item: Item;
   amount: number;
 };
@@ -22,20 +22,21 @@ const arrow = (input: boolean) => (
   </div>
 )
 
-export default function RecipeNodeRow({ input, item, amount, index }: RecipeNodeRowProps) {
+export default function RecipeNodeRow({ input, item, amount }: RecipeNodeRowProps) {
   return (
     <div
       style={{
+        position: "relative",
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         padding: "3px 5px",
         border: "1px solid lightgrey",
         borderTop: "none",
-        backgroundColor: input ? "#dff3dc" : "#efefef",
+        backgroundColor: input === InputType.Ingredient ? "#dff3dc" : "#efefef",
       }}
     >
-      {input && arrow(true)}
+      {input === InputType.Ingredient && arrow(true)}
 
       <img src={item.icon} height={32} />
 
@@ -51,7 +52,7 @@ export default function RecipeNodeRow({ input, item, amount, index }: RecipeNode
       <div
         style={{
           fontWeight: "bold",
-          marginRight: 10
+          marginRight: 3
         }}
       >
         {amount}
@@ -66,15 +67,9 @@ export default function RecipeNodeRow({ input, item, amount, index }: RecipeNode
         {item.isPiped ? "m³" : ""}/min
       </div>
 
-      {!input && arrow(false)}
+      {input === InputType.Product && arrow(false)}
 
-      <Handle
-        type={input ? "target" : "source"}
-        position={input ? Position.Left : Position.Right}
-        id={item.key}
-        style={{ top: index * 39 + 56, background: '#555' }}
-        isConnectable
-      />
+      <RecipeRowHandle item={item} input={input} />
     </div>
   );
 }

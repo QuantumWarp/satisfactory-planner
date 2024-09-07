@@ -1,0 +1,9 @@
+.recipe-row-handle {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.recipe-node:hover .recipe-row-handle,
+.recipe-node .recipe-row-handle:has(.connectingfrom) {
+  opacity: 1;
+}
