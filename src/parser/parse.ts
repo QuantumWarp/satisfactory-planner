@@ -3,6 +3,7 @@ import { writeFile } from "fs/promises";
 import { data, getBlobs, ParseError } from "./parse.data.ts";
 import { parseRecipeProducedIn } from "./parse.producer.ts";
 import { parseRecipeIngredients } from "./parse.item.ts";
+import { parseExtractors } from "./parse.extractor.ts";
 
 const path = "./src/resources/satisfactory-data.json";
 
@@ -19,7 +20,8 @@ const parse = async () => {
         ingredients: await parseRecipeIngredients(x.mIngredients),
         products: await parseRecipeIngredients(x.mProduct),
         duration: Number(x.mManufactoringDuration),
-        isAlternate: x.mDisplayName.startsWith("Alternate: ")
+        isAlternate: x.mDisplayName.startsWith("Alternate: "),
+        isExtraction: false
       };
       data.recipes.push(recipe);
     } catch (e) {
@@ -36,6 +38,8 @@ const parse = async () => {
       throw e
     }
   }
+
+  await parseExtractors();
 
   await writeFile(path, JSON.stringify(data, null, 2));
 }

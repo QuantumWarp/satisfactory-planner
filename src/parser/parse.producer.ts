@@ -22,7 +22,7 @@ export const parseRecipeProducedIn = async (producedIn: string) => {
 
   const name = blob.mDisplayName;
   const iconPath = await checkIcon(name);
-  
+
   data.producers.push({
     key,
     name: name,
@@ -33,7 +33,6 @@ export const parseRecipeProducedIn = async (producedIn: string) => {
 
   return key;
 }
-
 
 // Should only find a single entry since each recipe can only have one manufacturer
 const findFromClass = async (buildingClasses: string[]) => {

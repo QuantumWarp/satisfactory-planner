@@ -1,6 +1,6 @@
 import { Handle, Position } from '@xyflow/react';
-import { InputType } from '../../model/data/enums';
-import { Item } from '../../model/data/item';
+import { InputType } from '../../../model/data/enums';
+import { Item } from '../../../model/data/item';
 import { Box } from '@mui/material';
 
 type RecipeRowHandleProps = {

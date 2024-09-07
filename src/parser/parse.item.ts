@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { FormType } from "../model/data/enums";
 import { RecipeInput } from "../model/data/recipe";
 import { checkIcon, data, getBlobsGroup, ParseError } from "./parse.data";
 
@@ -24,7 +25,7 @@ export const parseRecipeIngredients = async (ingredients: string) => {
     const amount = Number(match[2]);
     results.push({
       itemKey: item.key,
-      amount: amount * (item.isPiped ? 0.001 : 1)
+      amount: amount * (item.form !== FormType.Solid ? 0.001 : 1)
     });
   }
 
@@ -46,8 +47,8 @@ const parseIngredient = async (ingredientClass: string) => {
     name: name,
     icon: iconPath,
     description: blob.mDescription,
+    form: blob.mForm === "RF_GAS" ? FormType.Gas : (blob.mForm === "RF_LIQUID" ? FormType.Liquid : FormType.Solid),
     isSinkable: blob.mResourceSinkPoints !== "0",
-    isPiped: ["RF_LIQUID", "RF_GAS"].includes(blob.mForm),
     isResource: blob.mSmallIcon.includes("/Game/FactoryGame/Resource/RawResources")
       && !blob.mDisplayName.includes("Packaged"),
     isAmmo: blob.mWeaponDamageMultiplier !== undefined,

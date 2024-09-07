@@ -3,3 +3,9 @@ export enum InputType {
   Product,
   Ingredient
 }
+
+export enum FormType {
+  Solid,
+  Liquid,
+  Gas
+}

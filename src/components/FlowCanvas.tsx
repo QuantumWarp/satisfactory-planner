@@ -1,7 +1,7 @@
 import '@xyflow/react/dist/style.css';
 import { addEdge, Background, Controls, Edge, MiniMap, Node, ReactFlow, useEdgesState, useNodesState } from '@xyflow/react';
 import { useCallback, useState } from 'react';
-import RecipeNode from './nodes/RecipeNode';
+import RecipeNode from './nodes/recipe/RecipeNode';
 import { ItemMenu } from './ItemMenu';
 import { createNode } from '../model/node.creator';
 import { allRecipes } from '../resources/data.helper';

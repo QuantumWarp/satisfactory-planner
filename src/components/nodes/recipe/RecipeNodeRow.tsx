@@ -1,5 +1,5 @@
-import { InputType } from '../../model/data/enums';
-import { Item } from '../../model/data/item';
+import { FormType, InputType } from '../../../model/data/enums';
+import { Item } from '../../../model/data/item';
 import { RecipeRowHandle } from './RecipeRowHandle';
  
 type RecipeNodeRowProps = {
@@ -64,7 +64,7 @@ export default function RecipeNodeRow({ input, item, amount }: RecipeNodeRowProp
           marginRight: 5
         }}
       >
-        {item.isPiped ? "m³" : ""}/min
+        {item.form !== FormType.Solid ? "m³" : ""}/min
       </div>
 
       {input === InputType.Product && arrow(false)}

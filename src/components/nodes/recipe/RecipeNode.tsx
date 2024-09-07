@@ -1,8 +1,8 @@
 import { NodeProps, Node } from '@xyflow/react';
 import RecipeNodeRow from './RecipeNodeRow';
-import { Recipe } from '../../model/data/recipe';
-import { allItems } from '../../resources/data.helper';
-import { InputType } from '../../model/data/enums';
+import { Recipe } from '../../../model/data/recipe';
+import { allItems } from '../../../resources/data.helper';
+import { InputType } from '../../../model/data/enums';
 import "./recipe-node.css";
  
 type RecipeNodeProps = NodeProps<Node<{

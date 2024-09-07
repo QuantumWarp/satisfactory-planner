@@ -10,4 +10,5 @@ export type Recipe = {
   products: RecipeInput[];
   duration: number;
   isAlternate: boolean;
+  isExtraction: boolean;
 }

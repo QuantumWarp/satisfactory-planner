@@ -4,10 +4,12 @@ import { OtherMenu } from "../menus/OtherMenu";
 import { RecipeMenu } from "../menus/recipe/RecipeMenu";
 import { useReactFlow } from "@xyflow/react";
 import { createNode } from "../../model/node.creator";
+import { ExtractorMenu } from "../menus/ExtractorMenu";
 
 export function TopBar() {
   const { setNodes } = useReactFlow();
 
+  const [extractorOpen, setExtractorOpen] = useState<HTMLElement | null>(null);
   const [recipeOpen, setRecipeOpen] = useState<HTMLElement | null>(null);
   const [otherOpen, setOtherOpen] = useState<HTMLElement | null>(null);
 
@@ -20,6 +22,7 @@ export function TopBar() {
 
         <Box marginLeft="auto" display="flex" alignItems="stretch">
           <Button
+            onClick={(e) => setExtractorOpen(e.currentTarget)}
             sx={{ fontSize: 20, px: 6 }}
             endIcon={<img src=".\src\resources\icons\buildings\Miner_Mk.1.png" height={52} />}
           >
@@ -43,6 +46,12 @@ export function TopBar() {
           </Button>
         </Box>
       </Box>
+
+      <ExtractorMenu
+        anchorEl={extractorOpen}
+        onSelect={() => setExtractorOpen(null)}
+        onClose={() => setExtractorOpen(null)}
+      />
 
       <RecipeMenu
         anchorEl={recipeOpen}
