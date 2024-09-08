@@ -30,7 +30,14 @@ export default function OtherNode({ data }: NodeProps<Node<OtherNodeProps>>) {
         {title}
       </Typography>
 
-      <RowHandle handleKey={title} input={input} />
+      {input === InputType.Ingredient && <RowHandle handleKey={title} input={input} small />}
+      {input === InputType.Product && <RowHandle handleKey={title} input={input} small />}
+      {input === InputType.Both && (
+        <>
+          <RowHandle handleKey={title + "1"} input={InputType.Ingredient} small />
+          <RowHandle handleKey={title + "2"} input={InputType.Product} small />
+        </>
+      )}
     </Box>
   );
 }

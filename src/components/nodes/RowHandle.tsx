@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 type RowHandleProps = {
   handleKey: string;
   input: InputType;
+  small?: boolean;
 };
 
 // minWidth required on handle to override the default
@@ -13,6 +14,7 @@ type RowHandleProps = {
 export const RowHandle = ({
   handleKey,
   input,
+  small = false
 }: RowHandleProps) => {
   const isInput = input === InputType.Ingredient;
   return (
@@ -62,7 +64,7 @@ export const RowHandle = ({
             opacity: 0.5,
             top: -18,
             height: 39,
-            width: 120,
+            width: small ? 40 : 120,
           }}
         />
       </Handle>

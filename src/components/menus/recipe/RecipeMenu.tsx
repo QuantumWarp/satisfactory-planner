@@ -67,7 +67,7 @@ export function RecipeMenu({
           itemKey={selectedItemKey}
           input={input}
           noAlternates={noAlternates}
-          onSelect={onSelect}
+          onSelect={(x) => { onSelect(x); onClose(); }}
         />}
       </Box>
     </Menu>

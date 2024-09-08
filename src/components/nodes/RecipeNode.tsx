@@ -4,22 +4,26 @@ import { Recipe } from '../../model/data/recipe';
 import { allItems } from '../../resources/data.helper';
 import { InputType } from '../../model/data/enums';
 import "./node.css";
+import { RecipeNodeInfo } from './RecipeNodeInfo';
  
-type RecipeNodeProps = NodeProps<Node<{
+export type RecipeNodeProps = {
   recipe: Recipe;
   multiplier: number;
-}>>;
+};
  
-export default function RecipeNode({ data }: RecipeNodeProps) {
-  const { recipe } = data;
+export default function RecipeNode({ data }: NodeProps<Node<RecipeNodeProps>>) {
+  const { recipe, multiplier } = data;
   const perMin = 60 / recipe.duration;
+
   return (
     <div
       className="node"
       style={{
+        position: "relative",
         width: recipe.isExtraction ? "260px" : "360px",
       }}
     >
+      <RecipeNodeInfo recipe={recipe} />
       <div
         style={{
           backgroundColor: "#474747",
@@ -28,6 +32,7 @@ export default function RecipeNode({ data }: RecipeNodeProps) {
           padding: "6px 10px",
         }}
       >
+        {multiplier}{"x "}
         {recipe.name}
         {recipe.isAlternate ? " - Alternate" : ""}
         {recipe.isExtraction ? " - Extraction" : ""}

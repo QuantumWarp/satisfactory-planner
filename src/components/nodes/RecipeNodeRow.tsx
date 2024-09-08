@@ -23,6 +23,9 @@ const arrow = (input: boolean) => (
 )
 
 export default function RecipeNodeRow({ input, item, amount }: RecipeNodeRowProps) {
+  const inputName = input === InputType.Ingredient ? "ingredient" : "product";
+  const handleKey = `${inputName}-${item.key}`
+
   return (
     <div
       style={{
@@ -69,7 +72,7 @@ export default function RecipeNodeRow({ input, item, amount }: RecipeNodeRowProp
 
       {input === InputType.Product && arrow(false)}
 
-      <RowHandle handleKey={item.key} input={input} />
+      <RowHandle handleKey={handleKey} input={input} />
     </div>
   );
 }
