@@ -7,3 +7,15 @@
 .node .row-handle:has(.connectingfrom) {
   opacity: 1;
 }
+
+
+.node-info {
+  top: 0;
+  transition: top 0.2s ease;
+  transition-delay: 0s;
+}
+
+.node:hover .node-info {
+  top: -60px;
+  transition-delay: 0.5s;
+}

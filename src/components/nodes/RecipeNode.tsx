@@ -11,7 +11,7 @@ export type RecipeNodeProps = {
   multiplier: number;
 };
  
-export default function RecipeNode({ data }: NodeProps<Node<RecipeNodeProps>>) {
+export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>>) {
   const { recipe, multiplier } = data;
   const perMin = 60 / recipe.duration;
 
@@ -23,19 +23,24 @@ export default function RecipeNode({ data }: NodeProps<Node<RecipeNodeProps>>) {
         width: recipe.isExtraction ? "260px" : "360px",
       }}
     >
-      <RecipeNodeInfo recipe={recipe} />
+      <RecipeNodeInfo nodeId={id} recipe={recipe} multiplier={multiplier} />
       <div
         style={{
           backgroundColor: "#474747",
           borderRadius: "5px 5px 0 0",
           color: "white",
           padding: "6px 10px",
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-        {multiplier}{"x "}
-        {recipe.name}
-        {recipe.isAlternate ? " - Alternate" : ""}
-        {recipe.isExtraction ? " - Extraction" : ""}
+        <span>
+          {recipe.name}
+          {recipe.isExtraction ? " - Extraction" : ""}
+        </span>
+        <span style={{ fontWeight: "bold" }}>
+          x{Math.round(multiplier * 100) / 100}
+        </span>
       </div>
 
       {recipe.products.map((product) => {

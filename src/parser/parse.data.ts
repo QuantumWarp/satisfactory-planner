@@ -31,6 +31,7 @@ export const getBlobs = (recipeSuffix: string) => {
 
 export const checkIcon = async (friendlyName: string) => {
   const filename = friendlyName.replace(/ /g, "_");
+  if (["Converter", "Quantum_Encoder", "SAM_Fluctuator"].includes(filename)) return iconDownloadPath + "buildings/Label_Sign_2m.png";
 
   for (const iconSubfolder of iconsSubfolders) {
     const iconPath = iconDownloadPath + iconSubfolder + "/" + filename + ".png";

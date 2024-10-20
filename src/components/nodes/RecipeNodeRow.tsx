@@ -58,7 +58,7 @@ export default function RecipeNodeRow({ input, item, amount }: RecipeNodeRowProp
           marginRight: 3
         }}
       >
-        {amount}
+        {Math.round(amount * 100) / 100}
       </div>
 
       <div

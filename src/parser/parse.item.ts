@@ -10,10 +10,12 @@ const itemSuffixes = [
   "FGItemDescriptorNuclearFuel",
   "FGAmmoTypeProjectile",
   "FGAmmoTypeInstantHit",
-  "FGAmmoTypeSpreadshot"
+  "FGAmmoTypeSpreadshot",
+  "FGPowerShardDescriptor",
+  "FGItemDescriptorPowerBoosterFuel"
 ];
 
-const classRegex = /\/[^/]*?_.*?\.(.*?_.*?_C)"',Amount=(\d*)/g;
+const classRegex = /\/[^/]*?_.*?\.(.*?_.*?_C)'",Amount=(\d*)/g;
 
 export const parseRecipeIngredients = async (ingredients: string) => {
   const matches = ingredients.matchAll(classRegex);
@@ -41,7 +43,7 @@ const parseIngredient = async (ingredientClass: string) => {
 
   const name = blob.mDisplayName;
   const iconPath = await checkIcon(name);
-  
+
   const item = {
     key,
     name: name,

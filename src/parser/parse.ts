@@ -26,7 +26,6 @@ const parse = async () => {
       data.recipes.push(recipe);
     } catch (e) {
       if (!(e instanceof ParseError)) throw e;
-
       const ignore = [
         "No producer",
         "Could not find producer - BP",
