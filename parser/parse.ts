@@ -5,7 +5,7 @@ import { parseRecipeProducedIn } from "./parse.producer.ts";
 import { parseRecipeIngredients } from "./parse.item.ts";
 import { parseExtractors } from "./parse.extractor.ts";
 
-const path = "./parser/data/satisfactory-data.json";
+const path = "./parser/data/data.json";
 
 const recipeSuffix = "FGRecipe";
 

@@ -24,7 +24,7 @@ export function TopBar() {
           <Button
             onClick={(e) => setExtractorOpen(e.currentTarget)}
             sx={{ fontSize: 20, px: 6 }}
-            endIcon={<img src=".\src\resources\icons\buildings\Miner_Mk.1.png" height={52} />}
+            endIcon={<img src="\icons\buildings\Miner_Mk.1.png" height={52} />}
           >
             Extractor
           </Button>
@@ -32,7 +32,7 @@ export function TopBar() {
           <Button
             onClick={(e) => setRecipeOpen(e.currentTarget)}
             sx={{ fontSize: 20, px: 6 }}
-            endIcon={<img src=".\src\resources\icons\items\Smart_Plating.png" height={60} />}
+            endIcon={<img src="\icons\items\Smart_Plating.png" height={60} />}
           >
             Recipe
           </Button>
@@ -40,7 +40,7 @@ export function TopBar() {
           <Button
             onClick={(e) => setOtherOpen(e.currentTarget)}
             sx={{ fontSize: 20, px: 6 }}
-            endIcon={<img src=".\src\resources\icons\buildings\Storage_Container.png" height={52} />}
+            endIcon={<img src="\icons\buildings\Storage_Container.png" height={52} />}
           >
             Other
           </Button>

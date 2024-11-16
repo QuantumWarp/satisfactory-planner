@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { readFile } from "fs/promises";
-import { SatisfactoryData } from "../src/model/data/satisfactory-data";
+import { readFile, copyFile, mkdir } from "fs/promises";
+import { SatisfactoryData } from "../src/model/data/satisfactory-data.ts";
 import { docs } from "./data/docs.ts";
 
-const iconDownloadPath = "./parser/icons/";
+const iconDownloadPath = "./parser/all-icons/";
+const finalIconDownloadPath = "./parser/icons/";
 const iconsSubfolders = ["buildings", "items", "fluids", "milestones", "vehicles"];
 const rawData = JSON.parse(docs);
 
@@ -35,10 +36,15 @@ export const checkIcon = async (friendlyName: string) => {
 
   for (const iconSubfolder of iconsSubfolders) {
     const iconPath = iconDownloadPath + iconSubfolder + "/" + filename + ".png";
-    console.log(iconPath)
     const exists = await readFile(iconPath).then(() => true).catch(() => false);
-    if (exists) return iconPath;
+    if (exists) {
+      const finalIconPath = finalIconDownloadPath + iconSubfolder  + "/" + filename + ".png";
+      await mkdir(finalIconDownloadPath + iconSubfolder, { recursive: true });
+      await copyFile(iconPath, finalIconPath)
+      console.log(finalIconPath.replace("./parser", ""))
+      return finalIconPath.replace("./parser", "");
+    }
   }
 
-  throw  new ParseError(`No icon found for ${filename}`);
+  throw new ParseError(`No icon found for ${filename}`);
 }

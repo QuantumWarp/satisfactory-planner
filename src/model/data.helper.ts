@@ -1,7 +1,7 @@
 import { Item } from './data/item';
 import { Recipe } from './data/recipe';
 import { Producer } from './data/producer';
-import statisfactoryData from './satisfactory-data.json';
+import statisfactoryData from '../data.json';
 
 export const allItems: Item[] = statisfactoryData.items
   .filter((x) => !x.isFicsmas)
