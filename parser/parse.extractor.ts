@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormType } from "../model/data/enums";
+import { FormType } from "../src/model/data/enums";
 import { checkIcon, data, getBlobsGroup } from "./parse.data";
 
 const extractorSuffixes = [

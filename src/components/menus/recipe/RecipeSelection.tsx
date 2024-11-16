@@ -1,5 +1,5 @@
 import { Box, ListItemIcon, ListItemText, MenuItem, Typography } from "@mui/material";
-import { allItems } from "../../../resources/data.helper";
+import { allItems } from "../../../model/data.helper";
 import { Recipe } from "../../../model/data/recipe";
 import { getRecipes } from "./helper";
 import { InputType } from "../../../model/data/enums";

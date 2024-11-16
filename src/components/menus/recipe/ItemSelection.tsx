@@ -1,5 +1,5 @@
 import { Box, ListItemIcon, ListItemText, MenuItem, TextField } from "@mui/material";
-import { allItems } from "../../../resources/data.helper";
+import { allItems } from "../../../model/data.helper";
 import { Item } from "../../../model/data/item";
 import { useState } from "react";
 

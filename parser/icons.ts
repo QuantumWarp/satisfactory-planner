@@ -8,8 +8,8 @@ const iconPages = {
   milestones: "/wiki/Category:Milestone_icons",
   vehicles: "/wiki/Category:Vehicle_icons",
 };
-const webpageDownloadPath = "./src/parser/webpages/";
-const iconDownloadPath = "./src/resources/icons/";
+const webpageDownloadPath = "./parser/webpages/";
+const iconDownloadPath = "./parser/icons/";
 
 const downloadAll = async () => {
   const keys = Object.keys(iconPages) as (keyof typeof iconPages)[];

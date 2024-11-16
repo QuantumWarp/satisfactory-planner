@@ -1,6 +1,6 @@
-import { Item } from '../model/data/item';
-import { Recipe } from '../model/data/recipe';
-import { Producer } from '../model/data/producer';
+import { Item } from './data/item';
+import { Recipe } from './data/recipe';
+import { Producer } from './data/producer';
 import statisfactoryData from './satisfactory-data.json';
 
 export const allItems: Item[] = statisfactoryData.items

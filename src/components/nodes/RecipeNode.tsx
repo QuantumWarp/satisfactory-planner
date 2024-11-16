@@ -1,7 +1,7 @@
 import { NodeProps, Node } from '@xyflow/react';
 import RecipeNodeRow from './RecipeNodeRow';
 import { Recipe } from '../../model/data/recipe';
-import { allItems } from '../../resources/data.helper';
+import { allItems } from '../../model/data.helper';
 import { InputType } from '../../model/data/enums';
 import "./node.css";
 import { RecipeNodeInfo } from './RecipeNodeInfo';

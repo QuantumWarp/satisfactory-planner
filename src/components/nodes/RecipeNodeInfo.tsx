@@ -1,6 +1,6 @@
 import { Box, IconButton, Slider } from "@mui/material";
 import { Recipe } from "../../model/data/recipe";
-import { allProducers } from "../../resources/data.helper";
+import { allProducers } from "../../model/data.helper";
 import {
   Bolt as PowerIcon,
   Delete as DeleteIcon,

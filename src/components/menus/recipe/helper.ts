@@ -1,5 +1,5 @@
 import { InputType } from "../../../model/data/enums";
-import { allRecipes } from "../../../resources/data.helper";
+import { allRecipes } from "../../../model/data.helper";
 
 export function getRecipes(
   itemKey?: string,

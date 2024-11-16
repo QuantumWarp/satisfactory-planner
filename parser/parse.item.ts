@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FormType } from "../model/data/enums";
-import { RecipeInput } from "../model/data/recipe";
+import { FormType } from "../src/model/data/enums";
+import { RecipeInput } from "../src/model/data/recipe";
 import { checkIcon, data, getBlobsGroup, ParseError } from "./parse.data";
 
 const itemSuffixes = [

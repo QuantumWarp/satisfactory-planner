@@ -1,8 +1,2 @@
 node_modules
 dist
-**/parser/docs*.json
-**/parser/docs.ts
-**/parser/webpages
-**/resources/satisfactory-data.json
-**/resources/icons
-
