@@ -19,7 +19,7 @@ export default function ChooseNode({ data, id }: NodeProps<Node<ChooseNodeProps>
   const anchorElRef = useRef<HTMLDivElement | null>(null);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const { updateNode } = useReactFlow();
+  const { updateNode, deleteElements } = useReactFlow();
 
   useEffect(() => {
     if (anchorElRef.current && !anchorEl) {
@@ -42,6 +42,12 @@ export default function ChooseNode({ data, id }: NodeProps<Node<ChooseNodeProps>
     });
   };
 
+  const onClose = (cancelled?: boolean) => {
+    if (cancelled) {
+      deleteElements({ nodes: [{ id }]});
+    }
+  };
+
   return (
     <Box ref={anchorElRef}>
       <Handle type="target" position={Position.Left} />
@@ -51,7 +57,7 @@ export default function ChooseNode({ data, id }: NodeProps<Node<ChooseNodeProps>
         input={input}
         anchorEl={anchorEl}
         onSelect={(x) => convertNode(x)}
-        onClose={() => {}}
+        onClose={onClose}
       />
     </Box>
   );

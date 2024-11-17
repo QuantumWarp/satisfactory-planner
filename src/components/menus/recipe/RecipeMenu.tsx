@@ -13,7 +13,7 @@ type RecipeMenuProps = {
   noAlternates?: boolean;
   anchorEl: HTMLElement | null;
   onSelect: (recipe: Recipe) => void;
-  onClose: () => void;
+  onClose: (cancelled?: boolean) => void;
 }
 
 export function RecipeMenu({ 
@@ -55,7 +55,7 @@ export function RecipeMenu({
       }}
       onClose={() => {
         setTimeout(() => setSelectedItemKey(undefined), 200);
-        onClose();
+        onClose(true);
       }}
     >
       <Box>

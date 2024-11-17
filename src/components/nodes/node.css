@@ -15,7 +15,7 @@
   transition-delay: 0s;
 }
 
-.node:hover .node-info {
+:not(.dragging) > .node:hover .node-info {
   top: -60px;
   transition-delay: 0.5s;
 }
