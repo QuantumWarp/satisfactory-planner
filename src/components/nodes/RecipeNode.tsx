@@ -8,11 +8,12 @@ import { RecipeNodeInfo } from './RecipeNodeInfo';
  
 export type RecipeNodeProps = {
   recipe: Recipe;
-  multiplier: number;
+  multiplier?: number;
 };
  
 export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>>) {
-  const { recipe, multiplier } = data;
+  const { recipe } = data;
+  const multiplier = data.multiplier || 1;
   const perMin = 60 / recipe.duration;
 
   return (
@@ -39,7 +40,7 @@ export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>
           {recipe.isExtraction ? " - Extraction" : ""}
         </span>
         <span style={{ fontWeight: "bold" }}>
-          x{Math.round(multiplier * 100) / 100}
+          x{Math.round(multiplier || 1)}
         </span>
       </div>
 
@@ -50,7 +51,7 @@ export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>
             key={"product-" + item.key}
             input={InputType.Product}
             item={item}
-            amount={perMin * product.amount * data.multiplier}
+            amount={perMin * product.amount * multiplier}
           />
         );
       })}
@@ -62,7 +63,7 @@ export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>
             key={"ingredient-" + item.key}
             input={InputType.Ingredient}
             item={item}
-            amount={perMin * product.amount * data.multiplier}
+            amount={perMin * product.amount * multiplier}
           />
         );
       })}

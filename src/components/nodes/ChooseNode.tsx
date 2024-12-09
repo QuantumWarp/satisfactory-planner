@@ -6,7 +6,7 @@ import { RecipeMenu } from '../menus/recipe/RecipeMenu';
 import { useEffect, useRef, useState } from 'react';
 import { Recipe } from '../../model/data/recipe';
 import { toPerMin } from '../../model/node.creator';
- 
+
 export type ChooseNodeProps = {
   itemKey: string;
   input: InputType;

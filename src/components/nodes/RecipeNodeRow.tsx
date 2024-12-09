@@ -36,6 +36,7 @@ export default function RecipeNodeRow({ input, item, amount }: RecipeNodeRowProp
         padding: "3px 5px",
         border: "1px solid lightgrey",
         borderTop: "none",
+        color: "black",
         backgroundColor: input === InputType.Ingredient ? "#dff3dc" : "#efefef",
       }}
     >

@@ -1,9 +1,9 @@
-export type RecipeInput = {
+export interface RecipeInput {
   itemKey: string;
   amount: number;
 }
 
-export type Recipe = {
+export interface Recipe {
   name: string;
   producerKey: string;
   ingredients: RecipeInput[];

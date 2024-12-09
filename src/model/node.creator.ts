@@ -1,45 +1,51 @@
-import { ChooseNodeProps } from "../components/nodes/ChooseNode";
-import { OtherNodeProps } from "../components/nodes/OtherNode";
-import { RecipeNodeProps } from "../components/nodes/RecipeNode";
+import { Handle, Node, XYPosition } from "@xyflow/react";
+import ChooseNode, { ChooseNodeProps } from "../components/nodes/ChooseNode";
+import OtherNode, { OtherNodeProps } from "../components/nodes/OtherNode";
+import RecipeNode, { RecipeNodeProps } from "../components/nodes/RecipeNode";
 import { InputType } from "./data/enums";
-import { Recipe } from "./data/recipe";
 
 let id = 0;
 
-export const createNode = (recipe: Recipe, multiplier = 1) => {
+export const nodeTypes = {
+  recipeNode: RecipeNode,
+  otherNode: OtherNode,
+  chooseNode: ChooseNode
+};
+
+type NodePropsMap = {
+  recipeNode: RecipeNodeProps;
+  chooseNode: ChooseNodeProps;
+  otherNode: OtherNodeProps;
+};
+
+export type NodeTypes = {
+  [K in keyof NodePropsMap]: Node<NodePropsMap[K]>;
+}[keyof NodePropsMap];
+
+export const createNode = <T extends keyof NodePropsMap>(
+  type: T,
+  data: NodePropsMap[T],
+  position: XYPosition = { x: 0, y: 0 }
+) => {
   id += 1;
   return {
     id: id.toString(),
-    type: 'recipeNode',
-    position: { x: 0, y: 0 },
-    data: { recipe, multiplier }
-  };
-}
-
-export const createOtherNode = (data: OtherNodeProps) => {
-  id += 1;
-  return {
-    id: id.toString(),
-    type: 'otherNode',
-    position: { x: 0, y: 0 },
-    data
-  };
-}
-
-
-export const createChooseNode = (data: ChooseNodeProps, position: { x: number, y: number }) => {
-  id += 1;
-  return {
-    id: id.toString(),
-    type: 'chooseNode',
+    type,
     position,
     data
   };
 }
 
-export const getInfoFromHandle = (handleKey: string, recipeNodeProps: RecipeNodeProps) => {
-  const input = handleKey.split('-')[0] === "ingredient" ? InputType.Ingredient : InputType.Product;
-  const itemKey = handleKey.split('-')[1];
+export const invertType = (type: InputType) => {
+  if (type === InputType.Ingredient) return InputType.Product;
+  if (type === InputType.Product) return InputType.Ingredient;
+  return InputType.Both;
+}
+
+export const getSourceInfo = (node: Node, handle: Handle) => {
+  const input = handle.id!.split('-')[0] === "ingredient" ? InputType.Ingredient : InputType.Product;
+  const itemKey = handle.id!.split('-')[1];
+  const recipeNodeProps = node.data as RecipeNodeProps;
   const baseAmount = input === InputType.Ingredient
     ? recipeNodeProps.recipe.ingredients.find(x => x.itemKey === itemKey)!.amount
     : recipeNodeProps.recipe.products.find(x => x.itemKey === itemKey)!.amount;
