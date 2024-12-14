@@ -25,5 +25,16 @@ export function getRecipes(
     }
   }
 
-  return recipes;
+  return recipes.sort((a, b) => {
+    if (a.isAlternate && !b.isAlternate) return 1;
+    if (!a.isAlternate && b.isAlternate) return -1;
+
+    const isInProductA = a.products.find((x) => x.itemKey === itemKey);
+    const isInProductB = b.products.find((x) => x.itemKey === itemKey);
+
+    if (isInProductA && !isInProductB) return -1;
+    if (!isInProductA && isInProductB) return 1;
+
+    return a.name.localeCompare(b.name);
+  });
 }

@@ -1,12 +1,16 @@
 import '@xyflow/react/dist/style.css';
 import { addEdge, Background, Connection, Controls, Edge, FinalConnectionState, MiniMap, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { createNode, getSourceInfo, invertType, nodeTypes, NodeTypes, toPerMin } from '../model/node.creator';
 import { InputType } from '../model/data/enums';
 import { getRecipes } from './menus/recipe/helper';
 import { useColorScheme } from '@mui/material';
+import { ConnectionMenu } from './menus/ConnectionMenu';
 
 export function FlowCanvas() {
+  const [deleteAnchor, setDeleteAnchor] = useState<HTMLElement>();
+  const [deleteEdge, setDeleteEdge] = useState<Edge>();
+
   const { mode } = useColorScheme();
   const [nodes, setNodes, onNodesChange] = useNodesState<NodeTypes>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
@@ -68,6 +72,10 @@ export function FlowCanvas() {
         nodeTypes={nodeTypes}
         nodes={nodes}
         edges={edges}
+        onEdgeClick={(e, edge) => {
+          setDeleteAnchor(e.target as HTMLElement); 
+          setDeleteEdge(edge);
+        }}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
@@ -77,6 +85,12 @@ export function FlowCanvas() {
         <MiniMap />
         <Background gap={12} size={1} />
       </ReactFlow>
+
+      <ConnectionMenu
+        anchorEl={deleteAnchor}
+        edge={deleteEdge}
+        onClose={() => setDeleteAnchor(undefined)}
+      />
     </div>
   );
 }

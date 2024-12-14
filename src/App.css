@@ -1,0 +1,11 @@
+.react-flow__edge-path {
+  stroke-width: 2;
+}
+
+.dark .react-flow__edge-path {
+  stroke: #777;
+}
+
+.dark .react-flow__edge.selected .react-flow__edge-path {
+  stroke: #ddd;
+}

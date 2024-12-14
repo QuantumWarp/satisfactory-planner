@@ -5,6 +5,7 @@ import { allItems } from '../../model/data.helper';
 import { InputType } from '../../model/data/enums';
 import "./node.css";
 import { RecipeNodeInfo } from './RecipeNodeInfo';
+import { createTheme, ThemeProvider } from '@mui/material';
  
 export type RecipeNodeProps = {
   recipe: Recipe;
@@ -24,49 +25,51 @@ export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>
         width: recipe.isExtraction ? "260px" : "360px",
       }}
     >
-      <RecipeNodeInfo nodeId={id} recipe={recipe} multiplier={multiplier} />
-      <div
-        style={{
-          backgroundColor: "#474747",
-          borderRadius: "5px 5px 0 0",
-          color: "white",
-          padding: "6px 10px",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <span>
-          {recipe.name}
-          {recipe.isExtraction ? " - Extraction" : ""}
-        </span>
-        <span style={{ fontWeight: "bold" }}>
-          x{Math.round(multiplier || 1)}
-        </span>
-      </div>
+      <ThemeProvider theme={createTheme()}>
+        <RecipeNodeInfo nodeId={id} recipe={recipe} multiplier={multiplier} />
+        <div
+          style={{
+            backgroundColor: "#474747",
+            borderRadius: "5px 5px 0 0",
+            color: "white",
+            padding: "6px 10px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <span>
+            {recipe.name}
+            {recipe.isExtraction ? " - Extraction" : ""}
+          </span>
+          <span style={{ fontWeight: "bold" }}>
+            x{Math.round(multiplier || 1)}
+          </span>
+        </div>
 
-      {recipe.products.map((product) => {
-        const item = allItems.find((x) => x.key === product.itemKey)!;
-        return (
-          <RecipeNodeRow
-            key={"product-" + item.key}
-            input={InputType.Product}
-            item={item}
-            amount={perMin * product.amount * multiplier}
-          />
-        );
-      })}
-      
-      {recipe.ingredients.map((product) => {
-        const item = allItems.find((x) => x.key === product.itemKey)!;
-        return (
-          <RecipeNodeRow
-            key={"ingredient-" + item.key}
-            input={InputType.Ingredient}
-            item={item}
-            amount={perMin * product.amount * multiplier}
-          />
-        );
-      })}
+        {recipe.products.map((product) => {
+          const item = allItems.find((x) => x.key === product.itemKey)!;
+          return (
+            <RecipeNodeRow
+              key={"product-" + item.key}
+              input={InputType.Product}
+              item={item}
+              amount={perMin * product.amount * multiplier}
+            />
+          );
+        })}
+        
+        {recipe.ingredients.map((product) => {
+          const item = allItems.find((x) => x.key === product.itemKey)!;
+          return (
+            <RecipeNodeRow
+              key={"ingredient-" + item.key}
+              input={InputType.Ingredient}
+              item={item}
+              amount={perMin * product.amount * multiplier}
+            />
+          );
+        })}
+      </ThemeProvider>
     </div>
   );
 }

@@ -34,12 +34,12 @@ export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoPro
     <Box
       className="node-info"
       position="absolute"
-      sx={{
+      sx={({ palette }) => ({
         height: "60px",
         zIndex: -1,
         width: "90%",
         backgroundColor: "#efefef",
-        border: "2px solid #474747",
+        border: `2px solid ${palette.mode === "dark" ? palette.grey[600] : "#474747"}`,
         borderBottom: "none",
         borderRadius: "5px 5px 0 0",
         color: "black",
@@ -52,7 +52,7 @@ export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoPro
         display: "flex",
         flexDirection: "column",
         alignItems: "stretch",
-      }}
+      })}
     >
       <Box mb={-1.2}>
         <Slider
@@ -66,6 +66,7 @@ export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoPro
           onChange={(_, newValue) => setMult(mappedValues[newValue as number])}
           size="small"
           valueLabelDisplay="auto"
+          
         />
       </Box>
 
