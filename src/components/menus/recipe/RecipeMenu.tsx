@@ -6,11 +6,11 @@ import { useState } from "react";
 import { Item } from "../../../model/data/item";
 import { getRecipes } from "./helper";
 import { InputType } from "../../../model/data/enums";
+import { useFactory } from "../../context/FactoryUse";
 
 type RecipeMenuProps = {
   itemKey?: string;
   input?: InputType;
-  noAlternates?: boolean;
   anchorEl: HTMLElement | null;
   onSelect: (recipe: Recipe) => void;
   onClose: (cancelled?: boolean) => void;
@@ -19,15 +19,15 @@ type RecipeMenuProps = {
 export function RecipeMenu({ 
   itemKey,
   input = InputType.Both,
-  noAlternates = false,
   anchorEl,
   onSelect,
   onClose
 }: RecipeMenuProps) {
+  const { alternates } = useFactory();
   const [selectedItemKey, setSelectedItemKey] = useState(itemKey);
 
   const selectItem = (item: Item) => {
-    const recipes = getRecipes(item.key, input, noAlternates);
+    const recipes = getRecipes(item.key, input, !alternates);
     if (recipes.length === 1) {
       onSelect(recipes[0]);
       onClose();
@@ -38,21 +38,12 @@ export function RecipeMenu({
 
   return (
     <Menu
-      sx={{ mt: 1, maxHeight: 600 }}
+      sx={{ mt: 1 }}
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
-      transitionDuration={{
-        enter: 225,
-        exit: 100,
-      }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+      transitionDuration={{ enter: 225, exit: 100 }}
       onClose={() => {
         setTimeout(() => setSelectedItemKey(undefined), 200);
         onClose(true);
@@ -66,7 +57,7 @@ export function RecipeMenu({
         {selectedItemKey && <RecipeSelection
           itemKey={selectedItemKey}
           input={input}
-          noAlternates={noAlternates}
+          noAlternates={!alternates}
           onSelect={(x) => { onSelect(x); onClose(); }}
         />}
       </Box>

@@ -1,17 +1,23 @@
-import { AppBar, Box, Button, Typography } from "@mui/material";
+import { AppBar, Box, Button, Tooltip, Typography } from "@mui/material";
+import { Add, Delete, FolderOpen, Save, Settings } from "@mui/icons-material";
 import { useState } from "react";
-import { OtherMenu } from "../menus/OtherMenu";
-import { RecipeMenu } from "../menus/recipe/RecipeMenu";
-import { useReactFlow } from "@xyflow/react";
-import { createNode } from "../../model/node.creator";
-import { ExtractorMenu } from "../menus/ExtractorMenu";
+import { useFactory } from "../context/FactoryUse";
+import { SettingsMenu } from "./SettingsMenu";
+import { LoadMenu } from "./LoadMenu";
+import { EditFactoryDialog } from "../dialogs/EditFactoryDialog";
+import { ConfirmationDialog } from "../dialogs/ConfirmationDialog";
 
 export function TopBar() {
-  const { setNodes } = useReactFlow();
+  const { factory, create, remove, load } = useFactory();
 
-  const [extractorOpen, setExtractorOpen] = useState<HTMLElement | null>(null);
-  const [recipeOpen, setRecipeOpen] = useState<HTMLElement | null>(null);
-  const [otherOpen, setOtherOpen] = useState<HTMLElement | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState<HTMLElement | null>(null);
+  const [loadOpen, setLoadOpen] = useState<HTMLElement | null>(null);
+  const [editNameOpen, setEditNameOpen] = useState<boolean>(false);
+  const [deleteOpen, setDeleteOpen] = useState<boolean>(false);
+  const [unsavedCreateOpen, setUnsavedCreateOpen] = useState<boolean>(false);
+  const [unsavedLoadOpen, setUnsavedLoadOpen] = useState<string>();
+
+  const isUnsaved = !factory.id;
 
   return (
     <AppBar position="absolute" color="default">
@@ -19,51 +25,103 @@ export function TopBar() {
         <Typography variant="h4" p={2}>
           Satisfactory Planner
         </Typography>
-
+        
         <Box marginLeft="auto" display="flex" alignItems="stretch">
-          <Button
-            onClick={(e) => setExtractorOpen(e.currentTarget)}
-            sx={{ fontSize: 20, px: 6 }}
-            endIcon={<img src="\icons\buildings\Miner_Mk.1.png" height={52} />}
-          >
-            Extractor
-          </Button>
+          <Tooltip title="New Factory">
+            <Box display="flex" alignItems="stretch">
+              <Button
+                disabled={!factory.id && factory.nodes.length === 0}
+                onClick={() => {
+                  if (isUnsaved) setUnsavedCreateOpen(true)
+                  else create();
+                }}
+              >
+                <Add />
+              </Button>
+            </Box>
+          </Tooltip>
 
-          <Button
-            onClick={(e) => setRecipeOpen(e.currentTarget)}
-            sx={{ fontSize: 20, px: 6 }}
-            endIcon={<img src="\icons\items\Smart_Plating.png" height={60} />}
-          >
-            Recipe
-          </Button>
+          <Tooltip title={isUnsaved ? "Save Factory" : "Saved Automatically"}>
+            <Box display="flex" alignItems="stretch">
+              <Button disabled={!isUnsaved} onClick={() => setEditNameOpen(true)}>
+                <Save />
+              </Button>
+            </Box>
+          </Tooltip>
 
-          <Button
-            onClick={(e) => setOtherOpen(e.currentTarget)}
-            sx={{ fontSize: 20, px: 6 }}
-            endIcon={<img src="\icons\buildings\Storage_Container.png" height={52} />}
-          >
-            Other
-          </Button>
+          
+          <Tooltip title={isUnsaved ? "Unsaved" : "Delete Factory"}>
+            <Box display="flex" alignItems="stretch">
+              <Button disabled={isUnsaved} onClick={remove} color="error">
+                <Delete />
+              </Button>
+              </Box>
+          </Tooltip>
+
+          <Tooltip title="Load Factory">
+            <Button onClick={(e) => setLoadOpen(e.currentTarget)}>
+              <FolderOpen />
+            </Button>
+          </Tooltip>
+
+          <Tooltip title="Settings">
+            <Button onClick={(e) => setSettingsOpen(e.currentTarget)}>
+              <Settings />
+            </Button>
+          </Tooltip>
         </Box>
       </Box>
 
-      <ExtractorMenu
-        anchorEl={extractorOpen}
-        onSelect={(recipe) => setNodes((nodes) => nodes.concat(createNode("recipeNode", { recipe })))}
-        onClose={() => setExtractorOpen(null)}
+      <LoadMenu
+        anchorEl={loadOpen}
+        onConfirm={(id) => {
+          if (isUnsaved) setUnsavedLoadOpen(id)
+          else load(id);
+        }}
+        onClose={() => setLoadOpen(null)}
       />
 
-      <RecipeMenu
-        anchorEl={recipeOpen}
-        onSelect={(recipe) => setNodes((nodes) => nodes.concat(createNode("recipeNode", { recipe })))}
-        onClose={() => setRecipeOpen(null)}
+      <SettingsMenu
+        anchorEl={settingsOpen}
+        onClose={() => setSettingsOpen(null)}
       />
 
-      <OtherMenu
-        anchorEl={otherOpen}
-        onSelect={(x) => setNodes((nodes) => nodes.concat(createNode("otherNode", x)))}
-        onClose={() => setOtherOpen(null)}
+      <EditFactoryDialog
+        open={editNameOpen}
+        onClose={() => setEditNameOpen(false)}
       />
+
+      <ConfirmationDialog
+        title="Delete Factory"
+        action="Delete"
+        open={deleteOpen}
+        onConfirm={remove}
+        onClose={() => setDeleteOpen(false)}
+      >
+        Are you sure you want to delete <b>{factory.name}</b>?
+      </ConfirmationDialog>
+
+      <ConfirmationDialog
+        title="Unsaved Factory"
+        action="Continue"
+        open={unsavedCreateOpen}
+        onConfirm={create}
+        onClose={() => setUnsavedCreateOpen(false)}
+      >
+        Are you sure you want to create a new factory?
+        You will lose this current unsaved factory.
+      </ConfirmationDialog>
+
+      <ConfirmationDialog
+        title="Unsaved Factory"
+        action="Continue"
+        open={Boolean(unsavedLoadOpen)}
+        onConfirm={() => unsavedLoadOpen && load(unsavedLoadOpen)}
+        onClose={() => setUnsavedLoadOpen(undefined)}
+      >
+        Are you sure you want to load this factory?
+        You will lose this current unsaved factory.
+      </ConfirmationDialog>
     </AppBar>
   )
 }

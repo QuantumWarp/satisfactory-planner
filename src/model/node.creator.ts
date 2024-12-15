@@ -1,10 +1,9 @@
 import { Handle, Node, XYPosition } from "@xyflow/react";
+import { v4 as uuid } from "uuid";
 import ChooseNode, { ChooseNodeProps } from "../components/nodes/ChooseNode";
 import OtherNode, { OtherNodeProps } from "../components/nodes/OtherNode";
 import RecipeNode, { RecipeNodeProps } from "../components/nodes/RecipeNode";
 import { InputType } from "./data/enums";
-
-let id = 0;
 
 export const nodeTypes = {
   recipeNode: RecipeNode,
@@ -27,9 +26,8 @@ export const createNode = <T extends keyof NodePropsMap>(
   data: NodePropsMap[T],
   position: XYPosition = { x: 0, y: 0 }
 ) => {
-  id += 1;
   return {
-    id: id.toString(),
+    id: uuid(),
     type,
     position,
     data
@@ -53,7 +51,7 @@ export const getSourceInfo = (node: Node, handle: Handle) => {
   return {
     itemKey,
     input,
-    amountPerMin: baseAmountPerMin * recipeNodeProps.multiplier
+    amountPerMin: baseAmountPerMin * (recipeNodeProps.multiplier || 1)
   };
 }
 

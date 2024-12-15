@@ -1,19 +1,34 @@
 import '@xyflow/react/dist/style.css';
-import { addEdge, Background, Connection, Controls, Edge, FinalConnectionState, MiniMap, ReactFlow, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
-import { useCallback, useState } from 'react';
+import { addEdge, Background, Connection, Controls, Edge, FinalConnectionState, MiniMap, ReactFlow, ReactFlowInstance, useEdgesState, useNodesState, useReactFlow } from '@xyflow/react';
+import { useCallback, useEffect, useState } from 'react';
 import { createNode, getSourceInfo, invertType, nodeTypes, NodeTypes, toPerMin } from '../model/node.creator';
 import { InputType } from '../model/data/enums';
 import { getRecipes } from './menus/recipe/helper';
 import { useColorScheme } from '@mui/material';
 import { ConnectionMenu } from './menus/ConnectionMenu';
+import { useFactory } from './context/FactoryUse';
 
 export function FlowCanvas() {
   const [deleteAnchor, setDeleteAnchor] = useState<HTMLElement>();
   const [deleteEdge, setDeleteEdge] = useState<Edge>();
 
+  const { factory, save } = useFactory();
   const { mode } = useColorScheme();
+
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance<NodeTypes, Edge>>();
   const [nodes, setNodes, onNodesChange] = useNodesState<NodeTypes>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
+
+  useEffect(() => {
+    const handler = setTimeout(save, 500);
+    return () => { clearTimeout(handler); };
+  }, [nodes, edges, save]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      reactFlowInstance?.fitView({ duration: 500 });
+    })
+  }, [factory.id, reactFlowInstance])
 
   const { screenToFlowPosition } = useReactFlow();
 
@@ -63,7 +78,6 @@ export function FlowCanvas() {
     [screenToFlowPosition, setEdges, setNodes],
   );
 
- 
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
       <ReactFlow
@@ -80,6 +94,7 @@ export function FlowCanvas() {
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onConnectEnd={onConnectEnd}
+        onInit={(instance) => setReactFlowInstance(instance)}
       >
         <Controls />
         <MiniMap />

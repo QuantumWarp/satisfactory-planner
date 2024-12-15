@@ -1,4 +1,4 @@
-import { Box, ListItemIcon, ListItemText, MenuItem, TextField } from "@mui/material";
+import { Box, Divider, ListItemIcon, ListItemText, MenuItem, TextField } from "@mui/material";
 import { allItems } from "../../../model/data.helper";
 import { Item } from "../../../model/data/item";
 import { useState } from "react";
@@ -27,21 +27,25 @@ export function ItemSelection({
         />  
       </Box>
 
-      {items.map((item) => {
-        return (
-          <MenuItem
-            key={item.name}
-            onClick={() => onSelect(item)}
-          >
-            <ListItemIcon key={item.key}>
-              <img src={item.icon} height={40} />
-            </ListItemIcon>
-            <ListItemText sx={{ ml: 2}}>
-              {item.name}
-            </ListItemText>
-          </MenuItem>
-        )
-      })}
+      <Divider />
+
+      <Box maxHeight={550} sx={{ overflowY: "auto" }}>
+        {items.map((item) => {
+          return (
+            <MenuItem
+              key={item.name}
+              onClick={() => onSelect(item)}
+            >
+              <ListItemIcon key={item.key}>
+                <img src={item.icon} height={40} />
+              </ListItemIcon>
+              <ListItemText sx={{ ml: 2}}>
+                {item.name}
+              </ListItemText>
+            </MenuItem>
+          )
+        })}
+      </Box>
     </Box>
   )
 }

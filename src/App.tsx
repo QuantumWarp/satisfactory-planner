@@ -1,7 +1,9 @@
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import { FlowCanvas } from "./components/FlowCanvas";
 import { TopBar } from "./components/top-bar/TopBar";
+import { ToolBar } from "./components/top-bar/ToolBar";
 import { ReactFlowProvider } from "@xyflow/react";
+import { FactoryProvider } from "./components/context/FactoryProvider";
 import "./App.css";
 
 export function App() {
@@ -24,15 +26,17 @@ export function App() {
     },
   });
 
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ReactFlowProvider>
-        <Box position="relative">
-          <TopBar />
-          <FlowCanvas />
-        </Box>
+        <FactoryProvider>
+          <Box position="relative">
+            <TopBar />
+            <ToolBar />
+            <FlowCanvas />
+          </Box>
+        </FactoryProvider>
       </ReactFlowProvider>
     </ThemeProvider>
   );

@@ -22,14 +22,8 @@ export function ExtractorMenu({
       sx={{ mt: 1 }}
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'bottom',
-        horizontal: 'center',
-      }}
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'center',
-      }}
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       onClose={onClose}
     >
       {items.map((item) => {
