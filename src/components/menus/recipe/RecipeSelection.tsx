@@ -9,17 +9,19 @@ import { Item } from "../../../model/data/item";
 type RecipeSelectionProps = {
   itemKey?: string;
   input?: InputType;
-  noAlternates?: boolean;
+  noAlternates: boolean;
+  noFicsmas: boolean;
   onSelect: (recipe: Recipe) => void;
 }
 
 export function RecipeSelection({ 
   itemKey,
   input = InputType.Both,
-  noAlternates = false,
+  noAlternates,
+  noFicsmas,
   onSelect,
 }: RecipeSelectionProps) {
-  const recipes = getRecipes(itemKey, input, noAlternates);
+  const recipes = getRecipes(itemKey, input, noAlternates, noFicsmas);
 
   const renderItems = (items: Item[]) => {
     return (
@@ -33,6 +35,10 @@ export function RecipeSelection({
 
   return (
     <Box width={350}>
+      {recipes.length === 0 && (
+        <Box p={2}>No options</Box>
+      )}
+
       {recipes.map((recipe) => {
         const products = allItems.filter((x) => recipe.products.find((y) => y.itemKey === x.key));
         const ingredients = allItems.filter((x) => recipe.ingredients.find((y) => y.itemKey === x.key));

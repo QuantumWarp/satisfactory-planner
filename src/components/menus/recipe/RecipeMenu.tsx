@@ -7,6 +7,7 @@ import { Item } from "../../../model/data/item";
 import { getRecipes } from "./helper";
 import { InputType } from "../../../model/data/enums";
 import { useFactory } from "../../context/FactoryUse";
+import { allItems } from "../../../model/data.helper";
 
 type RecipeMenuProps = {
   itemKey?: string;
@@ -23,11 +24,14 @@ export function RecipeMenu({
   onSelect,
   onClose
 }: RecipeMenuProps) {
-  const { alternates } = useFactory();
+  const { alternates, ficsmas: ficsmasSetting } = useFactory();
   const [selectedItemKey, setSelectedItemKey] = useState(itemKey);
 
+  const item = allItems.find((x) => x.key === itemKey);
+  const ficsmas = item?.isFicsmas || ficsmasSetting;
+
   const selectItem = (item: Item) => {
-    const recipes = getRecipes(item.key, input, !alternates);
+    const recipes = getRecipes(item.key, input, !alternates, !ficsmas);
     if (recipes.length === 1) {
       onSelect(recipes[0]);
       onClose();
@@ -58,6 +62,7 @@ export function RecipeMenu({
           itemKey={selectedItemKey}
           input={input}
           noAlternates={!alternates}
+          noFicsmas={!ficsmas}
           onSelect={(x) => { onSelect(x); onClose(); }}
         />}
       </Box>

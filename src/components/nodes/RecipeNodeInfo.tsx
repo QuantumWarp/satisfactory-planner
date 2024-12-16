@@ -4,9 +4,10 @@ import { allProducers } from "../../model/data.helper";
 import {
   Bolt as PowerIcon,
   Delete as DeleteIcon,
-  Balance as BalanceIcon
+  Assistant as CustomIcon
 } from "@mui/icons-material";
 import { useReactFlow } from "@xyflow/react";
+import { SetMultiplierDialog } from "../dialogs/SetMultiplierDialog";
 import { useState } from "react";
 
 type RecipeNodeInfoProps = {
@@ -16,8 +17,8 @@ type RecipeNodeInfoProps = {
 }
 
 export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoProps) {
-  const [mult, setMult] = useState(multiplier);
-  const { setNodes } = useReactFlow();
+  const { deleteElements, updateNode } = useReactFlow();
+  const [dialogOpen, setDialogOpen] = useState(false);
   const producer = allProducers.find(x => x.key === recipe.producerKey)!;
 
   const mappedValues = [
@@ -25,10 +26,14 @@ export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoPro
   ];
 
   const closestValue = mappedValues.reduce((closest, x) => {
-    const xIsCloser = Math.abs(x - mult) < Math.abs(closest - mult);
+    const xIsCloser = Math.abs(x - multiplier) < Math.abs(closest - multiplier);
     return xIsCloser ? x : closest
   });
   const sliderValue = mappedValues.indexOf(closestValue);
+
+  const setMultiplier = (newMult: number) => {
+    updateNode(nodeId, { data: { recipe, multiplier: newMult }})
+  };
 
   return (
     <Box
@@ -63,10 +68,8 @@ export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoPro
           min={0}
           max={mappedValues.length - 1}
           scale={(x) => mappedValues[x]}
-          onChange={(_, newValue) => setMult(mappedValues[newValue as number])}
+          onChange={(_, newValue) => setMultiplier(mappedValues[newValue as number])}
           size="small"
-          valueLabelDisplay="auto"
-          
         />
       </Box>
 
@@ -84,18 +87,26 @@ export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoPro
         </span>
 
         <Box sx={{ my: -.2 }} className="nodrag">
-          <IconButton size="small">
-            <BalanceIcon fontSize="inherit" />
+          <IconButton size="small" onClick={() => setDialogOpen(true)}>
+            <CustomIcon fontSize="inherit" />
           </IconButton>
+
           <IconButton
             size="small"
             color="error"
             sx={{ my: -1.5 }}
-            onClick={() => setNodes((nds) => nds.filter((node) => node.id !== nodeId))}
+            onClick={() => deleteElements({ nodes: [{ id: nodeId }] })}
           >
             <DeleteIcon fontSize="inherit" />
           </IconButton>
         </Box>
+
+        <SetMultiplierDialog
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          value={multiplier}
+          onChange={(x) => setMultiplier(x)}
+        />
       </Box>
     </Box>
   );

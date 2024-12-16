@@ -38,10 +38,14 @@ export function FactoryProvider({ children }: FactoryProviderProps) {
       const newFactory = {
         ...factory,
         nodes: json.nodes,
-        edges: json.edges,
-        updated: Date.now()
+        edges: json.edges
       };
-      saveFactory(newFactory);
+
+      // TODO: Avoid repeating save causing loop
+      if (JSON.stringify(newFactory) !== JSON.stringify(factory)) {
+        setFactory({ ...newFactory, updated: Date.now() });
+        saveFactory({ ...newFactory, updated: Date.now() });
+      }
     };
     
     const load = (id: string) => {

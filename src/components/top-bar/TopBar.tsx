@@ -1,5 +1,5 @@
 import { AppBar, Box, Button, Tooltip, Typography } from "@mui/material";
-import { Add, Delete, FolderOpen, Save, Settings } from "@mui/icons-material";
+import { Add, Delete, FactoryOutlined, FolderOpen, Save, Settings } from "@mui/icons-material";
 import { useState } from "react";
 import { useFactory } from "../context/FactoryUse";
 import { SettingsMenu } from "./SettingsMenu";
@@ -22,7 +22,11 @@ export function TopBar() {
   return (
     <AppBar position="absolute" color="default">
       <Box display="flex" alignItems="stretch">
-        <Typography variant="h4" p={2}>
+        <Box display="flex" alignItems="center" mx={3}>
+          <FactoryOutlined fontSize="large" />
+        </Box>
+
+        <Typography variant="h4" py={2}>
           Satisfactory Planner
         </Typography>
         
@@ -49,7 +53,6 @@ export function TopBar() {
             </Box>
           </Tooltip>
 
-          
           <Tooltip title={isUnsaved ? "Unsaved" : "Delete Factory"}>
             <Box display="flex" alignItems="stretch">
               <Button disabled={isUnsaved} onClick={() => setDeleteOpen(true)} color="error">
@@ -75,8 +78,13 @@ export function TopBar() {
       <LoadMenu
         anchorEl={loadOpen}
         onConfirm={(id) => {
-          if (isUnsaved) setUnsavedLoadOpen(id)
-          else load(id);
+          if (id) {
+            if (isUnsaved) setUnsavedLoadOpen(id);
+            else load(id);
+          } else {
+            if (isUnsaved) setUnsavedCreateOpen(true);
+            else create();
+          }
         }}
         onClose={() => setLoadOpen(null)}
       />

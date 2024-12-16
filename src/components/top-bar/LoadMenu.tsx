@@ -1,11 +1,12 @@
-import { ListItemText, Menu, MenuItem } from "@mui/material";
+import { ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getFactories } from "../../storage/factory.storage";
 import { Factory } from "../../storage/factory";
+import { Add } from "@mui/icons-material";
 
 type LoadMenuProps = {
   anchorEl: HTMLElement | null;
-  onConfirm: (id: string) => void;
+  onConfirm: (id?: string) => void;
   onClose: () => void;
 }
 
@@ -24,12 +25,29 @@ export function LoadMenu({ anchorEl, onConfirm, onClose }: LoadMenuProps) {
       anchorEl={anchorEl}
       onClose={onClose}
     >
+      {factories?.length === 0 && (
+        <MenuItem
+          sx={{ width: 200 }}
+          onClick={() => {
+            onConfirm();
+            onClose();
+          }}
+        >
+          <ListItemIcon>
+            <Add />
+          </ListItemIcon>
+          <ListItemText>
+            Create New
+          </ListItemText>
+        </MenuItem>
+      )}
+
       {factories?.map((x) => (
         <MenuItem
           key={x.id}
           sx={{ width: 200 }}
           onClick={() => {
-            if (x.id) onConfirm(x.id);
+            onConfirm(x.id);
             onClose();
           }}
         >

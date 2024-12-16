@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { writeFile } from "fs/promises";
 import { data, getBlobs, ParseError } from "./parse.data.ts";
 import { parseRecipeProducedIn } from "./parse.producer.ts";

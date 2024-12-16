@@ -2,6 +2,7 @@ import { Box, Divider, ListItemIcon, ListItemText, MenuItem, TextField } from "@
 import { allItems } from "../../../model/data.helper";
 import { Item } from "../../../model/data/item";
 import { useState } from "react";
+import { useFactory } from "../../context/FactoryUse";
 
 type ItemSelectionProps = {
   onSelect: (item: Item) => void;
@@ -10,8 +11,11 @@ type ItemSelectionProps = {
 export function ItemSelection({
   onSelect
 }: ItemSelectionProps) {
+  const { ficsmas } = useFactory();
   const [search, setSearch] = useState("");
-  const items = allItems.filter((x) => x.name.toLowerCase().includes(search.toLowerCase()));
+  const items = allItems
+    .filter((x) => ficsmas || !x.isFicsmas)
+    .filter((x) => x.name.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <Box width={300}>

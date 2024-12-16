@@ -27,6 +27,7 @@ export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>
     >
       <ThemeProvider theme={createTheme()}>
         <RecipeNodeInfo nodeId={id} recipe={recipe} multiplier={multiplier} />
+        
         <div
           style={{
             backgroundColor: "#474747",

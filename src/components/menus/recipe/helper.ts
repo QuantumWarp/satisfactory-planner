@@ -1,15 +1,21 @@
 import { InputType } from "../../../model/data/enums";
-import { allRecipes } from "../../../model/data.helper";
+import { allItems, allRecipes } from "../../../model/data.helper";
 
 export function getRecipes(
   itemKey?: string,
   input?: InputType,
   noAlternates?: boolean,
+  noFicsmas?: boolean,
 ) {
   let recipes = allRecipes;
 
   if (noAlternates) {
     recipes = recipes.filter((x) => !x.isAlternate);
+  }
+
+  if (noFicsmas) {
+    const ficsmasKeys = allItems.filter((x) => x.isFicsmas).map((x) => x.key);
+    recipes = recipes.filter((x) => !x.products.find((p) => ficsmasKeys.includes(p.itemKey)));
   }
 
   if (itemKey) {

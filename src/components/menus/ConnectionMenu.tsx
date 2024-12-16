@@ -22,6 +22,8 @@ export function ConnectionMenu({ anchorEl, edge, onClose }: ConnectionMenuProps)
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={onClose}
+      anchorOrigin={{ vertical: "center", horizontal: "center" }}
+      transformOrigin={{ vertical: "top", horizontal: "center" }}
     >
       <MenuItem onClick={deleteEdge}>Delete</MenuItem>
     </Menu>
