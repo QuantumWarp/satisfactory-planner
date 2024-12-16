@@ -52,7 +52,7 @@ export function TopBar() {
           
           <Tooltip title={isUnsaved ? "Unsaved" : "Delete Factory"}>
             <Box display="flex" alignItems="stretch">
-              <Button disabled={isUnsaved} onClick={remove} color="error">
+              <Button disabled={isUnsaved} onClick={() => setDeleteOpen(true)} color="error">
                 <Delete />
               </Button>
               </Box>

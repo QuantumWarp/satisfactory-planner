@@ -1,4 +1,5 @@
 import { Factory } from "./factory";
+import { example } from "./factory.example";
 
 export const getFactories = (): Factory[] => {
   const keys = Object.keys(localStorage);
@@ -28,6 +29,13 @@ export const deleteFactory = (id: string): void => {
 }
 
 export const getInitialFactory = (): Factory => {
+  const loaded = localStorage.getItem("loaded");
+  localStorage.setItem("loaded", "true");
+
+  if (!loaded) {
+    saveFactory(example);
+  }
+
   const keys = Object.keys(localStorage);
   const factoryIds = keys
     .filter((x) => x.startsWith("factory-"))

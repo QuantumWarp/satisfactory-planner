@@ -42,7 +42,7 @@ export default function RecipeNode({ data, id }: NodeProps<Node<RecipeNodeProps>
             {recipe.isExtraction ? " - Extraction" : ""}
           </span>
           <span style={{ fontWeight: "bold" }}>
-            x{Math.round(multiplier || 1)}
+            x{multiplier ? Math.round(multiplier * 100) / 100 : 1}
           </span>
         </div>
 
