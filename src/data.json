@@ -6980,6 +6980,20 @@
       "isExtraction": true
     },
     {
+      "name": "Raw Quartz",
+      "producerKey": "Build_MinerMk2_C",
+      "ingredients": [],
+      "products": [
+        {
+          "itemKey": "Desc_RawQuartz_C",
+          "amount": 1
+        }
+      ],
+      "duration": 0.5,
+      "isAlternate": false,
+      "isExtraction": true
+    },
+    {
       "name": "Limestone",
       "producerKey": "Build_MinerMk2_C",
       "ingredients": [],
@@ -7106,6 +7120,20 @@
       "isExtraction": true
     },
     {
+      "name": "Raw Quartz",
+      "producerKey": "Build_MinerMk1_C",
+      "ingredients": [],
+      "products": [
+        {
+          "itemKey": "Desc_RawQuartz_C",
+          "amount": 1
+        }
+      ],
+      "duration": 1,
+      "isAlternate": false,
+      "isExtraction": true
+    },
+    {
       "name": "Limestone",
       "producerKey": "Build_MinerMk1_C",
       "ingredients": [],
@@ -7232,6 +7260,20 @@
       "isExtraction": true
     },
     {
+      "name": "Raw Quartz",
+      "producerKey": "Build_MinerMk3_C",
+      "ingredients": [],
+      "products": [
+        {
+          "itemKey": "Desc_RawQuartz_C",
+          "amount": 1
+        }
+      ],
+      "duration": 0.25,
+      "isAlternate": false,
+      "isExtraction": true
+    },
+    {
       "name": "Limestone",
       "producerKey": "Build_MinerMk3_C",
       "ingredients": [],
@@ -7256,6 +7298,20 @@
         }
       ],
       "duration": 0.25,
+      "isAlternate": false,
+      "isExtraction": true
+    },
+    {
+      "name": "Nitrogen Gas",
+      "producerKey": "Build_FrackingExtractor_C",
+      "ingredients": [],
+      "products": [
+        {
+          "itemKey": "Desc_NitrogenGas_C",
+          "amount": 1
+        }
+      ],
+      "duration": 1,
       "isAlternate": false,
       "isExtraction": true
     },
@@ -7472,7 +7528,7 @@
       "description": "Has a variety of uses, including metallurgy, cooling, and Nitric Acid production. On MASSAGE-2 (AB)b, it can be extracted from underground gas wells.",
       "form": 2,
       "isSinkable": true,
-      "isResource": false,
+      "isResource": true,
       "isAmmo": false,
       "isFicsmas": false
     },
@@ -7912,7 +7968,7 @@
       "description": "Can be processed into Quartz Crystals and Silica, which both offer a variety of applications.",
       "form": 0,
       "isSinkable": true,
-      "isResource": false,
+      "isResource": true,
       "isAmmo": false,
       "isFicsmas": false
     },

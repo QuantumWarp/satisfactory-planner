@@ -9,6 +9,17 @@ const extractorSuffixes = [
 
 const classRegex = /\/[^/]*?\.(Desc.*?_.*?_C)/g;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const fixItems = (items: any[]): any[] => {
+  const quartz = items.find((x) => x.name === "Raw Quartz");
+  quartz.isResource = true;
+  quartz.form = 0;
+  const nitrogen = items.find((x) => x.name === "Nitrogen Gas");
+  nitrogen.isResource = true;
+  nitrogen.form = 2;
+  return items;
+};
+
 export const parseExtractors = async () => {
   const extractorBlobs = getBlobsGroup(extractorSuffixes)
 
@@ -33,7 +44,7 @@ export const parseExtractors = async () => {
     const allowedResourceClasses = blob.mAllowedResources && [...blob.mAllowedResources.matchAll(classRegex)].map((x) => x[1]);
     const allowedForms = [...blob.mAllowedResourceForms.replace(/[()]/g, "").split(",")]
       .map((x) => x === "RF_GAS" ? FormType.Gas : (x === "RF_LIQUID" ? FormType.Liquid : FormType.Solid))
-    let resources = data.items
+    let resources = fixItems(data.items)
       .filter((x) => x.isResource)
       .filter((x) => allowedForms.includes(x.form));
     if (allowedResourceClasses) {

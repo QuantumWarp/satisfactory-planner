@@ -15,16 +15,16 @@ export default function OtherNode({ data }: NodeProps<Node<OtherNodeProps>>) {
   return (
     <Box
       className="node"
-      style={{
-        border: "1px solid #151515",
+      sx={({ palette: { mode } }) => ({
+        border: `1px solid ${mode === "dark" ? "grey" : "#151515"}`,
         width: "110px",
         backgroundColor: "#151515",
         borderRadius: "5px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: 5
-      }}
+        padding: "5px"
+      })}
     >
       <Typography color="white" textTransform="uppercase">
         {title}

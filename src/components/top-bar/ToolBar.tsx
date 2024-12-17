@@ -9,7 +9,7 @@ import { EditFactoryDialog } from "../dialogs/EditFactoryDialog";
 import { useFactory } from "../context/FactoryUse";
 
 export function ToolBar() {
-  const { setNodes } = useReactFlow();
+  const { setNodes, screenToFlowPosition } = useReactFlow();
   const { factory } = useFactory();
 
   const [nameOpen, setNameOpen] = useState(false);
@@ -56,19 +56,19 @@ export function ToolBar() {
 
       <ExtractorMenu
         anchorEl={extractorOpen}
-        onSelect={(recipe) => setNodes((nodes) => nodes.concat(createNode("recipeNode", { recipe })))}
+        onSelect={(recipe) => setNodes((nodes) => nodes.concat(createNode("recipeNode", { recipe }, screenToFlowPosition({ x:window.innerWidth / 2, y:window.innerHeight / 2}))))}
         onClose={() => setExtractorOpen(null)}
       />
 
       <RecipeMenu
         anchorEl={recipeOpen}
-        onSelect={(recipe) => setNodes((nodes) => nodes.concat(createNode("recipeNode", { recipe })))}
+        onSelect={(recipe) => setNodes((nodes) => nodes.concat(createNode("recipeNode", { recipe }, screenToFlowPosition({ x:window.innerWidth / 2, y:window.innerHeight / 2}))))}
         onClose={() => setRecipeOpen(null)}
       />
 
       <OtherMenu
         anchorEl={otherOpen}
-        onSelect={(x) => setNodes((nodes) => nodes.concat(createNode("otherNode", x)))}
+        onSelect={(x) => setNodes((nodes) => nodes.concat(createNode("otherNode", x, screenToFlowPosition({ x:window.innerWidth / 2, y:window.innerHeight / 2}))))}
         onClose={() => setOtherOpen(null)}
       />
     </Box>

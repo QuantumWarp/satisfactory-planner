@@ -81,7 +81,7 @@ export function RecipeNodeInfo({ nodeId, recipe, multiplier }: RecipeNodeInfoPro
           }}
         >
           {recipe.isAlternate ? "Alt - " : ""}
-          {producer.name}
+          {producer.name.replace(" Extractor", "")}
           <PowerIcon />
           {Math.round(producer.powerConsumption * multiplier * 100) / 100}
         </span>

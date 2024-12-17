@@ -1,5 +1,5 @@
 import { Box, ListItemText, MenuItem, Tooltip, Typography } from "@mui/material";
-import { allItems } from "../../../model/data.helper";
+import { allItems, allProducers } from "../../../model/data.helper";
 import { Recipe } from "../../../model/data/recipe";
 import { getRecipes } from "./helper";
 import { InputType } from "../../../model/data/enums";
@@ -43,6 +43,8 @@ export function RecipeSelection({
         const products = allItems.filter((x) => recipe.products.find((y) => y.itemKey === x.key));
         const ingredients = allItems.filter((x) => recipe.ingredients.find((y) => y.itemKey === x.key));
         const bold = products.find((x) => x.key === itemKey);
+        let producer = recipe.isExtraction && allProducers.find((x) => x.key === recipe.producerKey)?.name;
+        producer = producer ? ` (${producer.replace(" Extractor", "")})` : "";
 
         return (
           <MenuItem
@@ -75,7 +77,7 @@ export function RecipeSelection({
             >
               <ListItemText>
                 <Typography fontWeight={bold ? "bold" : "normal"}>
-                  {recipe.name}{recipe.isAlternate ? " *" : ""}
+                  {recipe.name}{recipe.isAlternate ? " *" : ""}{producer}
                 </Typography>
               </ListItemText>
             </Tooltip>
