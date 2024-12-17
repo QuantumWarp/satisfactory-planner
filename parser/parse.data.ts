@@ -41,8 +41,8 @@ export const checkIcon = async (friendlyName: string) => {
       const finalIconPath = finalIconDownloadPath + iconSubfolder  + "/" + filename + ".png";
       await mkdir(finalIconDownloadPath + iconSubfolder, { recursive: true });
       await copyFile(iconPath, finalIconPath)
-      console.log(finalIconPath.replace("./parser", ""))
-      return finalIconPath.replace("./parser", "");
+      console.log(finalIconPath.replace("./parser", "."))
+      return finalIconPath.replace("./parser", ".");
     }
   }
 

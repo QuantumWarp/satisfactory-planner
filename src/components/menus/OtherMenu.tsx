@@ -26,12 +26,12 @@ export function OtherMenu({
         sx={{ width: 200 }}
         onClick={() => { onSelect({
           title: "Sink",
-          icon: "/other/AWESOME_Shop.png",
+          icon: "./other/AWESOME_Shop.png",
           input: InputType.Ingredient
         }); onClose(); } }
       >
         <ListItemIcon>
-          <img src="/other/AWESOME_Shop.png" height={40} />
+          <img src="./other/AWESOME_Shop.png" height={40} />
         </ListItemIcon>
         <ListItemText sx={{ ml: 2}}>
           Sink
@@ -41,12 +41,12 @@ export function OtherMenu({
       <MenuItem
         onClick={() => { onSelect({
           title: "Power",
-          icon: "/other/Power_Line.png",
+          icon: "./other/Power_Line.png",
           input: InputType.Ingredient
         }); onClose(); } }
       >
         <ListItemIcon>
-          <img src="/other/Power_Line.png" height={40} />
+          <img src="./other/Power_Line.png" height={40} />
         </ListItemIcon>
         <ListItemText sx={{ ml: 2}}>
           Power
@@ -56,12 +56,12 @@ export function OtherMenu({
       <MenuItem
         onClick={() => { onSelect({
           title: "Storage",
-          icon: "/other/Storage_Container.png",
+          icon: "./other/Storage_Container.png",
           input: InputType.Both
         }); onClose(); } }
       >
         <ListItemIcon>
-          <img src="/other/Storage_Container.png" height={40} />
+          <img src="./other/Storage_Container.png" height={40} />
         </ListItemIcon>
         <ListItemText sx={{ ml: 2}}>
           Storage
@@ -71,12 +71,12 @@ export function OtherMenu({
       <MenuItem
         onClick={() => { onSelect({
           title: "External",
-          icon: "/other/Train_Station.png",
+          icon: "./other/Train_Station.png",
           input: InputType.Both
         }); onClose(); } }
       >
         <ListItemIcon>
-          <img src="/other/Train_Station.png" height={40} />
+          <img src="./other/Train_Station.png" height={40} />
         </ListItemIcon>
         <ListItemText sx={{ ml: 2}}>
           External

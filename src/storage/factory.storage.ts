@@ -1,12 +1,15 @@
 import { Factory } from "./factory";
 import { example } from "./factory.example";
 
+const prefix = "satisfactory-planner-";
+const factoryPrefix = `${prefix}factory-`;
+
 export const getFactories = (): Factory[] => {
   const keys = Object.keys(localStorage);
   const factoryIds = keys
-    .filter((x) => x.startsWith("factory-"))
-    .filter((x) => x !== "factory-unsaved")
-    .map((x) => x.replace("factory-", ""));
+    .filter((x) => x.startsWith(factoryPrefix))
+    .filter((x) => x !== `${factoryPrefix}unsaved`)
+    .map((x) => x.replace(factoryPrefix, ""));
   const factories = factoryIds.map((x) => getFactory(x));
 
   return factories.sort((a, b) => a.name.localeCompare(b.name));
@@ -14,23 +17,23 @@ export const getFactories = (): Factory[] => {
 
 export const getFactory = (id?: string): Factory => {
   const key = id || "unsaved";
-  const result = localStorage.getItem(`factory-${key}`);
+  const result = localStorage.getItem(`${factoryPrefix}${key}`);
   if (!result) throw new Error("Factory not found");
   return JSON.parse(result!);
 }
 
 export const saveFactory = (factory: Factory): void => {
   const key = factory.id || "unsaved";
-  localStorage.setItem(`factory-${key}`, JSON.stringify(factory));
+  localStorage.setItem(`${factoryPrefix}${key}`, JSON.stringify(factory));
 }
 
 export const deleteFactory = (id: string): void => {
-  localStorage.removeItem(`factory-${id}`);
+  localStorage.removeItem(`${factoryPrefix}${id}`);
 }
 
 export const getInitialFactory = (): Factory => {
-  const loaded = localStorage.getItem("loaded");
-  localStorage.setItem("loaded", "true");
+  const loaded = localStorage.getItem(`${prefix}loaded`);
+  localStorage.setItem(`${prefix}loaded`, "true");
 
   if (!loaded) {
     saveFactory(example);
@@ -38,8 +41,8 @@ export const getInitialFactory = (): Factory => {
 
   const keys = Object.keys(localStorage);
   const factoryIds = keys
-    .filter((x) => x.startsWith("factory-"))
-    .map((x) => x.replace("factory-", ""));
+    .filter((x) => x.startsWith(factoryPrefix))
+    .map((x) => x.replace(factoryPrefix, ""));
   const factories = factoryIds.map((x) => getFactory(x));
 
   return factories.sort((a, b) => a.updated > b.updated ? -1 : 1)[0] || defaultFactory();
