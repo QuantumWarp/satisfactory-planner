@@ -47,6 +47,9 @@ export function FlowCanvas() {
       const recipes = getRecipes(info.itemKey, invertType(info.input));
       const position = screenToFlowPosition({ x: event.clientX, y: event.clientY });
       const newNodeIsTarget = info.input === InputType.Product;
+      if (!newNodeIsTarget) {
+        position.x -= 360;
+      }
 
       let newNode = null;
       if (recipes.length === 1) {

@@ -17,7 +17,7 @@ type RecipeMenuProps = {
   onClose: (cancelled?: boolean) => void;
 }
 
-export function RecipeMenu({ 
+export function RecipeMenu({
   itemKey,
   input = InputType.Both,
   anchorEl,
@@ -34,11 +34,16 @@ export function RecipeMenu({
     const recipes = getRecipes(item.key, input, !alternates, !ficsmas);
     if (recipes.length === 1) {
       onSelect(recipes[0]);
-      onClose();
+      closeMenu();
     } else {
       setSelectedItemKey(item.key);
     }
-  }
+  };
+
+  const closeMenu = (cancelled?: boolean) => {
+    setTimeout(() => setSelectedItemKey(undefined), 200);
+    onClose(cancelled);
+  };
 
   return (
     <Menu
@@ -48,10 +53,7 @@ export function RecipeMenu({
       anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       transformOrigin={{ vertical: 'top', horizontal: 'center' }}
       transitionDuration={{ enter: 225, exit: 100 }}
-      onClose={() => {
-        setTimeout(() => setSelectedItemKey(undefined), 200);
-        onClose(true);
-      }}
+      onClose={() => closeMenu(true)}
     >
       <Box>
         {!selectedItemKey && <ItemSelection
@@ -63,7 +65,7 @@ export function RecipeMenu({
           input={input}
           noAlternates={!alternates}
           noFicsmas={!ficsmas}
-          onSelect={(x) => { onSelect(x); onClose(); }}
+          onSelect={(x) => { onSelect(x); closeMenu(); }}
         />}
       </Box>
     </Menu>
